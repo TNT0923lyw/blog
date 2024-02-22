@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  <meta name="referrer" content="unsafe-url">
+  
+  <title>Bezier curve</title>
+  <meta name="author" content="John Doe">
+  <meta name="description" content="贝塞尔曲线
+想要绘制直线，很简单，纯 css 就可以。绘制曲线的话，纯 css 滴话，嗯… border-radius 可以绘制出来简单的弧形，复杂的搞起来就太麻烦了。所以我们经常会借助 svg 、canvas or 第三方库…
+
+
+而贝塞尔曲线是我们最经常绘制的曲线，它有一次滴、二次滴、三次滴哈哈">
+  
+  
+  <meta property="og:title" content="Bezier curve"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="小刘&#39;s blog"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="小刘&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="main-ctnr">
+      <div class="behind">
+  <a href="/" class="back black-color">
+    <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+        <path d="M2 30 L30 2 M30 30 L2 2"></path>
+    </svg>
+  </a>
+  
+</div>
+
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Bezier curve
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      <time datetime="2024-02-22T05:57:51.000Z" itemprop="datePublished">
+  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2024-02-22
+</time>
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/前端up向/">前端up向</a>
+
+
+    </div>
+    <hr>
+    
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF"><span class="toc-text">贝塞尔曲线</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%B8%80%E6%AC%A1%EF%BC%9A"><span class="toc-text">(1) 一次：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BA%8C%E6%AC%A1%EF%BC%9A"><span class="toc-text">(2) 二次：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%B8%89%E6%AC%A1%EF%BC%9A"><span class="toc-text">(3) 三次：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E7%BB%98%E5%88%B6%E7%9A%84%E5%B0%8F%E8%81%8A%E5%A4%A9%E6%A1%86"><span class="toc-text">(4) 绘制的小聊天框</span></a></li></ol></li></ol></li></ol>
+    
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="贝塞尔曲线"><a href="#贝塞尔曲线" class="headerlink" title="贝塞尔曲线"></a>贝塞尔曲线</h2><blockquote>
+<p>想要绘制直线，很简单，纯 css 就可以。绘制曲线的话，纯 css 滴话，嗯… border-radius 可以绘制出来简单的弧形，复杂的搞起来就太麻烦了。所以我们经常会借助 svg 、canvas or 第三方库…</p>
+</blockquote>
+<blockquote>
+<p>而<strong>贝塞尔曲线</strong>是我们最经常绘制的曲线，它有一次滴、二次滴、三次滴哈哈哈。下面我们以 canvas 为例介绍一下贝塞尔曲线的绘制！</p>
+</blockquote>
+<h4 id="1-一次："><a href="#1-一次：" class="headerlink" title="(1) 一次："></a>(1) 一次：</h4><p><img src="/startic/gif/%E4%B8%80%E6%AC%A1%E8%B4%9D%E5%A1%9E%E5%B0%94.gif"></p>
+<blockquote>
+<p><strong>一次</strong>其实就是线段，so 我们一般使用<strong>二次</strong>和<strong>三次</strong>的比较多。</p>
+</blockquote>
+<h4 id="2-二次："><a href="#2-二次：" class="headerlink" title="(2) 二次："></a>(2) 二次：</h4><blockquote>
+<p><strong>二次</strong> 由 1个结束点 and 1个控制点决定</p>
+</blockquote>
+<ul>
+<li><code>quadraticCurveTo(cp1x, cp1y, x, y)</code></li>
+<li>参数：控制点坐标 (cp1x,cp1y)  ；结束点坐标 (x,y)</li>
+</ul>
+<p><img src="/startic/gif/%E4%BA%8C%E6%AC%A1%E8%B4%9D%E5%A1%9E%E5%B0%94.gif"></p>
+<p>如上图所示，<strong>控制点</strong>是用来控制曲线的弯曲方向的，起始点到结束点的直线会朝向控制点弯曲！</p>
+<p>假设 green line 的左端点是 D0 ，右端点是 D1，曲线的形成路径点为M。则绘制过程中始终保持 P0D0/D0P1 = P1D1 / D1P2 = D0M/MD1，这也是贝塞尔曲线的形成原理！</p>
+<h4 id="3-三次："><a href="#3-三次：" class="headerlink" title="(3) 三次："></a>(3) 三次：</h4><blockquote>
+<p><strong>三次</strong> 由 1个结束点 and 2个控制点决定</p>
+</blockquote>
+<ul>
+<li><code>quadraticCurveTo(cp1x, cp1y, cp2x,cp2y, x, y)</code></li>
+<li>参数：控制点1坐标 (cp1x,cp1y)  ；控制点2坐标(cp2x,cp2y) ；结束点坐标 (x,y)</li>
+</ul>
+<p><img src="/startic/gif/%E4%B8%89%E6%AC%A1%E8%B4%9D%E5%A1%9E%E5%B0%94.gif"></p>
+<p>三次曲线的形成原理同上！</p>
+<h4 id="4-绘制的小聊天框"><a href="#4-绘制的小聊天框" class="headerlink" title="(4) 绘制的小聊天框"></a>(4) 绘制的小聊天框</h4><p><img src="/startic/images/%E8%81%8A%E5%A4%A9%E6%A1%86.jpg"></p>
+<p><strong>代码如下：</strong></p>
+<p><img src="/startic/images/%E8%81%8A%E5%A4%A9%E6%A1%86%E4%BB%A3%E7%A0%81.jpg"></p>
+
+
+  </article>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+    
+
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Lsd begin at 2022
+    </div>
+    <div class="secondrow">
+        <a target="_blank" rel="noopener" href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
