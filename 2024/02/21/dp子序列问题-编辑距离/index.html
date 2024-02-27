@@ -10,10 +10,9 @@
   
   <title>dp子序列问题-&gt;编辑距离</title>
   <meta name="author" content="John Doe">
-  <meta name="description" content="编辑距离
-&amp;nbsp;&amp;nbsp;看到两个字符串的最优解问题，就要考虑动归，那就跟着动归5部曲走嘛嘿嘿！
+  <meta name="description" content="&amp;nbsp;&amp;nbsp;看到两个字符串的最优解问题，就要考虑动归，那就跟着动归5部曲走嘛嘿嘿！
 (1) 定义 dp 数组&amp;nbsp;&amp;nbsp;两个字符串嘛，得是二维dp数组。dp[i][j] 就记录分别以 word1[i]、Word2[j] 结尾的最优解。
-(2) 初始化 dp 数组&amp;n">
+(2) 初始化 dp 数组&amp;nbsp;&amp;">
   
   
   <meta property="og:title" content="dp子序列问题-&gt;编辑距离"/>
@@ -78,12 +77,12 @@
     </div>
     <hr>
     
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB"><span class="toc-text">编辑距离</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%9A%E4%B9%89-dp-%E6%95%B0%E7%BB%84"><span class="toc-text">(1) 定义 dp 数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96-dp-%E6%95%B0%E7%BB%84"><span class="toc-text">(2) 初始化 dp 数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B"><span class="toc-text">(3) 状态转移方程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%BF%AD%E4%BB%A3"><span class="toc-text">(4) 迭代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C"><span class="toc-text">(5) 返回结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">代码如下：</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%9A%E4%B9%89-dp-%E6%95%B0%E7%BB%84"><span class="toc-text">(1) 定义 dp 数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96-dp-%E6%95%B0%E7%BB%84"><span class="toc-text">(2) 初始化 dp 数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B"><span class="toc-text">(3) 状态转移方程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%BF%AD%E4%BB%A3"><span class="toc-text">(4) 迭代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C"><span class="toc-text">(5) 返回结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">代码如下：</span></a></li></ol>
     
     <div class="picture-container">
       
     </div>
-    <h2 id="编辑距离"><a href="#编辑距离" class="headerlink" title="编辑距离"></a>编辑距离</h2><p><img src="/static/images/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB.jpg" alt="hh"></p>
+    <p><img src="/static/images/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB.jpg" alt="hh"></p>
 <p>&nbsp;&nbsp;看到两个字符串的最优解问题，就要考虑动归，那就跟着<strong>动归5部曲</strong>走嘛嘿嘿！</p>
 <h4 id="1-定义-dp-数组"><a href="#1-定义-dp-数组" class="headerlink" title="(1) 定义 dp 数组"></a>(1) 定义 dp 数组</h4><p>&nbsp;&nbsp;两个字符串嘛，得是二维dp数组。dp[i][j] 就记录分别以 word1[i]、Word2[j] 结尾的最优解。</p>
 <h4 id="2-初始化-dp-数组"><a href="#2-初始化-dp-数组" class="headerlink" title="(2) 初始化 dp 数组"></a>(2) 初始化 dp 数组</h4><p>&nbsp;&nbsp;动归嘛，当前的状态要么就根据之前的状态决定，要么就根据后面的状态决定！即从上而下的递归 or 从下而上的递归，两种要初始化的范围是不一样滴！</p>
