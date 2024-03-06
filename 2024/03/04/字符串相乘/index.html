@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  <meta name="referrer" content="unsafe-url">
+  
+  <title>字符串相乘</title>
+  <meta name="author" content="John Doe">
+  <meta name="description" content="to the leetcode
+
+&amp;nbsp;&amp;nbsp;刚看见本题，觉得好扯啊，字符串相乘，还不让直接转为整数相乘（毫无意义…）。好吧，是我太浅薄了，能想到的大数就只是几百万or几千万…
+
+JS 中的 Number类型 采用 IEEE-754标准，所以受到 52 位精度数的限制，所以绝对值大于或等">
+  
+  
+  <meta property="og:title" content="字符串相乘"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="小刘&#39;s blog"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="小刘&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="main-ctnr">
+      <div class="behind">
+  <a href="/" class="back black-color">
+    <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+        <path d="M2 30 L30 2 M30 30 L2 2"></path>
+    </svg>
+  </a>
+  
+</div>
+
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        字符串相乘
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      <time datetime="2024-03-04T03:48:16.000Z" itemprop="datePublished">
+  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2024-03-04
+</time>
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/leetcode/">leetcode</a>
+
+
+    </div>
+    <hr>
+    
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%80-error%E7%89%88-%EF%BC%9A"><span class="toc-text">思路一(error版)：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%BA%8C-correct%E7%89%88-%EF%BC%9A"><span class="toc-text">思路二(correct版)：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">代码如下：</span></a></li></ol>
+    
+    <div class="picture-container">
+      
+    </div>
+    <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/multiply-strings/description/">to the leetcode</a></p>
+<p><img src="/static/images/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%981.jpg" alt="哦豁，没加载出来"></p>
+<p>&nbsp;&nbsp;刚看见本题，觉得好扯啊，字符串相乘，还不让直接转为整数相乘（毫无意义…）。好吧，是我太浅薄了，能想到的大数就只是几百万or几千万…</p>
+<blockquote>
+<p>JS 中的 <code>Number类型</code> 采用 <code>IEEE-754标准</code>，所以受到 <strong>52</strong> 位精度数的限制，所以绝对值大于或等于 2^53 的整数，可能会导致精度丢失或舍入错误。以下两图分别为 <code>IEEE-754标准</code> 下的存储规则和vscode的warning提示：</p>
+</blockquote>
+<p><img src="/static/images/IEE.jpg" alt="哦豁，没加载出来"></p>
+<p><img src="/static/images/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%983.jpg" alt="哦豁，没加载出来"></p>
+<p>&nbsp;&nbsp;那如果想要计算 <strong>9333852702227987 * 3</strong> 嘞，【9333852702227987 已经大于 2^52 = 9007199254740992，那字符相乘的意义就来了！嗯 嗯嗯… 大体思路其实就是按照竖式运算的过程进行计算！</p>
+<h4 id="思路一-error版-："><a href="#思路一-error版-：" class="headerlink" title="思路一(error版)："></a>思路一(error版)：</h4><p>&nbsp;&nbsp;笑死了，写半天愣是没反应过来，开始就是错的。两个字符串 num1 、num2 ，想的是让 num2 按位直接与 num1 相乘。但是如果 num1 可以直接参与乘法运算的话，那还按位干什么，多此一举！【例如下图的num1，如果转化为数字，那它本身就已经超过最大精度限制了！】</p>
+<p><img src="/static/images/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%982.png" alt="哦豁，没加载出来"></p>
+<h4 id="思路二-correct版-："><a href="#思路二-correct版-：" class="headerlink" title="思路二(correct版)："></a>思路二(correct版)：</h4><p>&nbsp;&nbsp;让 num1 的每一位与 num2 的每一位相乘，思路挺简单的，就是看看怎么实现代码看起来不那么冗余啦！说了模拟竖式相乘，那就初始化一个结果数组，然后在计算过程中不断更新结果每一位的值即可！ </p>
+<h4 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h4><p><img src="/static/images/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%984.jpg" alt="哦豁，没加载出来"></p>
+
+
+  </article>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+    
+
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Lsd begin at 2022
+    </div>
+    <div class="secondrow">
+        <a target="_blank" rel="noopener" href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
