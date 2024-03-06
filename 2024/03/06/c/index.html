@@ -8,15 +8,15 @@
   <meta name="google-site-verification" content="" />
   <meta name="referrer" content="unsafe-url">
   
-  <title>c</title>
+  <title>删除链表的倒数第 n 个节点</title>
   <meta name="author" content="John Doe">
   <meta name="description" content="to the leetcode
 
-&amp;nbsp;&amp;nbsp;本题难点在于如何确定倒数第 k 个元素的位置，因为链表的长度是不知道的，如果知道那就很简单了，但是专门再遍历一遍链表来得出链表长度又显得太暴力了！那怎么办嘞？
-&amp;nbsp;&amp;nbsp;前后双指针就派上用场了，倒数第 k 个 就是 正数第 n ">
+&amp;nbsp;&amp;nbsp;本题难点在于如何确定倒数第 n 个元素的位置，因为链表的长度是不知道的，如果知道那就很简单了，但是专门再遍历一遍链表来得出链表长度又显得太暴力了！那怎么办嘞？
+&amp;nbsp;&amp;nbsp;前后双指针就派上用场了，倒数第 n 个 就是 正数第 m ">
   
   
-  <meta property="og:title" content="c"/>
+  <meta property="og:title" content="删除链表的倒数第 n 个节点"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:site_name" content="小刘&#39;s blog"/>
   <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
@@ -46,7 +46,7 @@
       
   
     <h1 class="page-title center">
-        c
+        删除链表的倒数第 n 个节点
     </h1>
   
 
@@ -85,9 +85,9 @@
     </div>
     <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/">to the leetcode</a></p>
 <p><img src="/static/images/%E5%88%A0%E5%80%92k.jpg" alt="哦豁，加载失败啦"></p>
-<p>&nbsp;&nbsp;本题难点在于如何确定倒数第 k 个元素的位置，因为链表的长度是不知道的，如果知道那就很简单了，但是专门再遍历一遍链表来得出链表长度又显得太暴力了！那怎么办嘞？</p>
-<p>&nbsp;&nbsp;前后双指针就派上用场了，倒数第 k 个 就是 正数第 n - k + 1 个(假设链表长度为 n)。那我先让前后指针都指向头结点 head ，然后让前指针 pre 先走 k 步 ，后指针 cur 不动。接着 pre 和 cur 同时移动，且每次都移动一步，当 pre 走到链表末尾时（走了 n - k 步），此时 cur 指针指向的就是第 n-k 个元素，也就是要删除的元素（第 n - k + 1 个）的前面一个，那后续操作就不用多说了吧嘿嘿！</p>
-<p>&nbsp;&nbsp;还有一种情况需要特殊处理 -&gt; k = n 时，即要删除第一个元素，此时可直接 return head.next；那如何判断出 k = n呢 ？ 因为 k 最大就与 n 相等，假设时 k = n 的情况，那当 pre 走了 k-1 步时，pre 就指向了链表的最后一个元素，此时 pre.next = null，我们可以判断在这种情况下，让 pre 重新指向 head ，即 pre = cur 与 cur 相遇，此时就可以证明要删除的是最后一个元素，那就直接 return head.next；</p>
+<p>&nbsp;&nbsp;本题难点在于如何确定倒数第 n 个元素的位置，因为链表的长度是不知道的，如果知道那就很简单了，但是专门再遍历一遍链表来得出链表长度又显得太暴力了！那怎么办嘞？</p>
+<p>&nbsp;&nbsp;前后双指针就派上用场了，倒数第 n 个 就是 正数第 m - n + 1 个(假设链表长度为 n)。那我先让前后指针都指向头结点 head ，然后让前指针 pre 先走 k 步 ，后指针 cur 不动。接着 pre 和 cur 同时移动，且每次都移动一步，当 pre 走到链表末尾时（走了 m - n 步），此时 cur 指针指向的就是第 m-n 个元素，也就是要删除的元素（第 m - n + 1 个）的前面一个，那后续操作就不用多说了吧嘿嘿！</p>
+<p>&nbsp;&nbsp;还有一种情况需要特殊处理 -&gt; n = m 时，即要删除第一个元素，此时可直接 return head.next；那如何判断出 n = m呢 ？ 因为 k 最大就与 n 相等，假设时 n = m 的情况，那当 pre 走了 k-1 步时，pre 就指向了链表的最后一个元素，此时 pre.next = null，我们可以判断在这种情况下，让 pre 重新指向 head ，即 pre = cur 与 cur 相遇，此时就可以证明要删除的是最后一个元素，那就直接 return head.next；</p>
 <h4 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h4><p><img src="/static/images/%E5%88%A0%E5%80%92k2.jpg" alt="哦豁，加载失败啦"></p>
 
 
