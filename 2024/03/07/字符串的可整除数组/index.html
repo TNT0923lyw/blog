@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  <meta name="referrer" content="unsafe-url">
+  
+  <title>字符串的可整除数组</title>
+  <meta name="author" content="John Doe">
+  <meta name="description" content="to the leetcode
+
+&amp;nbsp;&amp;nbsp;我认为本题和 字符串相乘 都属于很纯的数学题，不需要什么算法的思想，会数学就行！哈哈哈哈，但是本人一开始的思路还是跑偏到 dp动归 去了…
+思路 error 版：&amp;nbsp;&amp;nbsp; dp[i] 记录以位置 i 结尾的是否可以被整除。那递">
+  
+  
+  <meta property="og:title" content="字符串的可整除数组"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="小刘&#39;s blog"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="小刘&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="main-ctnr">
+      <div class="behind">
+  <a href="/" class="back black-color">
+    <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+        <path d="M2 30 L30 2 M30 30 L2 2"></path>
+    </svg>
+  </a>
+  
+</div>
+
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        字符串的可整除数组
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      <time datetime="2024-03-07T02:56:26.000Z" itemprop="datePublished">
+  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2024-03-07
+</time>
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/leetcode/">leetcode</a>
+
+
+    </div>
+    <hr>
+    
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-error-%E7%89%88%EF%BC%9A"><span class="toc-text">思路 error 版：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-correct%E7%89%88%EF%BC%9A"><span class="toc-text">思路 correct版：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">代码如下：</span></a></li></ol>
+    
+    <div class="picture-container">
+      
+    </div>
+    <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-divisibility-array-of-a-string/description/?envType=daily-question&envId=2024-03-07">to the leetcode</a></p>
+<p><img src="/static/images/%E6%95%B4%E9%99%A4%E6%95%B0%E7%BB%841.jpg" alt="哦豁，没加载出来"></p>
+<p>&nbsp;&nbsp;我认为本题和 <a target="_blank" rel="noopener" href="http://47.109.109.163:2332/2024/03/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/">字符串相乘</a> 都属于很纯的数学题，不需要什么算法的思想，会数学就行！哈哈哈哈，但是本人一开始的思路还是跑偏到 dp动归 去了…</p>
+<h4 id="思路-error-版："><a href="#思路-error-版：" class="headerlink" title="思路 error 版："></a>思路 error 版：</h4><p>&nbsp;&nbsp; dp[i] 记录以位置 i 结尾的是否可以被整除。那递归过程中：如果 dp[i-1]可以，dp[i] 可不可以就单纯取决于 word[i] 是不是可以啦 ；如果 dp[i-1] 不可以，那就往前找到最后可以的位置，截取这之间的字符串，看是否可以被整除。举个例子：”99824435” , “9” 可以 ；”99” 可以； “998” 的时候，因为前面的 “99” 可以但是 “8” 不可以 , 那就不可以 ；”9982” 的时候 ，”998” 不可以 ，”82” 也不可以，那就不可以。【cause 9982 = 99 * 10 + 82】这种解决 JS 最大精度范围内的数字的字符串是可以的，但是超过精度就不行，因为不能进行取余运算…</p>
+<h4 id="思路-correct版："><a href="#思路-correct版：" class="headerlink" title="思路 correct版："></a>思路 correct版：</h4><p>&nbsp;&nbsp; 模拟除法运算，嗯嗯嗯，是这样的，就像之前模拟乘法运算一样。【(a*10 + b) % n &lt;=&gt; [(a%n) * 10 + b] % n 】998 % 4 = 198 % 4 = 38 % 4 = 2 </p>
+<h4 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h4><p><img src="/static/images/%E6%95%B4%E9%99%A4%E6%95%B0%E7%BB%842.jpg" alt="哦豁，没加载出来"></p>
+<p>pre 记录一下前一位的区域结果 ，cur 是当前位</p>
+
+
+  </article>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+    
+
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Lsd begin at 2022
+    </div>
+    <div class="secondrow">
+        <a target="_blank" rel="noopener" href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
