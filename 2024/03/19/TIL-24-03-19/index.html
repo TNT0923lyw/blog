@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  <meta name="referrer" content="unsafe-url">
+  
+  <title>TIL-24/03/19</title>
+  <meta name="author" content="John Doe">
+  <meta name="description" content="时隔几日计网又来了：
+
+子网 vs 网络：
+- 计算机们通过集线器连接起来，形成`子网`
+
+- 集线器(子网)再通过路由器连接起来，形成`网络`
+
+- IP 地址中的网络号就可以区分不同子网
+
+- 子网掩码就是对网络号的补充说明，指定网络号和主机号分别的位数！
+
+
+Socket 库：用于调用网络功能">
+  
+  
+  <meta property="og:title" content="TIL-24/03/19"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="小刘&#39;s blog"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="小刘&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="main-ctnr">
+      <div class="behind">
+  <a href="/" class="back black-color">
+    <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+        <path d="M2 30 L30 2 M30 30 L2 2"></path>
+    </svg>
+  </a>
+  
+</div>
+
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        TIL-24/03/19
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      <time datetime="2024-03-19T12:38:13.000Z" itemprop="datePublished">
+  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2024-03-19
+</time>
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/TIL/">TIL</a>
+
+
+    </div>
+    <hr>
+    
+      
+    
+    <div class="picture-container">
+      
+    </div>
+    <p>时隔几日计网又来了：</p>
+<ul>
+<li><p><strong>子网 vs 网络</strong>：</p>
+<pre><code>- 计算机们通过集线器连接起来，形成`子网`
+
+- 集线器(子网)再通过路由器连接起来，形成`网络`
+
+- IP 地址中的网络号就可以区分不同子网
+
+- 子网掩码就是对网络号的补充说明，指定网络号和主机号分别的位数！
+</code></pre>
+</li>
+<li><p><strong>Socket 库</strong>：用于调用网络功能的程序组件集合，操作系统使用它！</p>
+</li>
+<li><p><strong>解析器：</strong> 一段程序，包含在 <code>Socket库</code>中，它来实现向 DNS服务器发出查询 IP地址 的功能，收到响应后，它会把响应信息写入浏览器的指定内存中。</p>
+</li>
+<li><p><strong>协议栈：</strong> 操作系统内部的<code>网络控制软件</code>。主要部分如下：</p>
+<pre><code>- TCP: 有连接的可靠交付
+
+- UDP：无连接的不可靠交付
+
+- IP：主要包括 ICMP(实现网络包的可靠交付)、ARP(查询mac地址)
+
+- 解析器收到相应的 服务器IP地址后，就可以调用协议栈向服务器(建立连接)发送请求了
+</code></pre>
+</li>
+<li><p><strong>套接字：</strong> 数据的出入口，客户端和服务器端都会有套接字。一般是服务器先建立套接字（服务器一般启动时就会有），然后等客户端进行连接形成’管道’。【套接字只是一个概念，并没有实体，非说的话，那其实就是那些通信控制信息，IP地址、端口号…】</p>
+</li>
+<li><p>一次网络请求的大致流程为（按照从上向下依次委派的逻辑来）：</p>
+<pre><code>- 网络应用程序（浏览器、邮件客户端...）调用操作系统中的各段程序(解析器、协议栈...)与服务器建立连接并发送请求（协议栈与网卡进行配合，将数据分为网络包并转为电信号、光信号发出去）
+</code></pre>
+</li>
+</ul>
+
+
+  </article>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+    
+
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Lsd begin at 2022
+    </div>
+    <div class="secondrow">
+        <a target="_blank" rel="noopener" href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
