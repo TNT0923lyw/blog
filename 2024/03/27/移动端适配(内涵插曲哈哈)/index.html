@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  <meta name="referrer" content="unsafe-url">
+  
+  <title>移动端适配(内涵插曲哈哈)</title>
+  <meta name="author" content="John Doe">
+  <meta name="description" content="&amp;nbsp;&amp;nbsp;没自己动手实操前，一直感觉适配很难，以为要写一大堆代码才能在不同型号的设备上达到令人满意的效果。但奈何现在有那么多功能强大的插件，太方便了！比如：postcss-px-to-viewport。
+&amp;nbsp;&amp;nbsp;之前写过的一些需求，都很巧妙地让我避开了这个问题，写css">
+  
+  
+  <meta property="og:title" content="移动端适配(内涵插曲哈哈)"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="小刘&#39;s blog"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="小刘&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="main-ctnr">
+      <div class="behind">
+  <a href="/" class="back black-color">
+    <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+        <path d="M2 30 L30 2 M30 30 L2 2"></path>
+    </svg>
+  </a>
+  
+</div>
+
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        移动端适配(内涵插曲哈哈)
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      <time datetime="2024-03-27T06:09:53.000Z" itemprop="datePublished">
+  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2024-03-27
+</time>
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/实习-in-bcz/">实习 in bcz</a>
+
+
+    </div>
+    <hr>
+    
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#px-vw-vh-em-rem"><span class="toc-text">px vw&#x2F;vh em&#x2F;rem %</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E7%8B%AC%E7%AB%8B%E5%83%8F%E7%B4%A0-vs-css%E5%83%8F%E7%B4%A0%EF%BC%88%E9%80%BB%E8%BE%91%E5%83%8F%E7%B4%A0%EF%BC%89vs-%E8%AE%BE%E5%A4%87%E5%83%8F%E7%B4%A0%EF%BC%88%E7%89%A9%E7%90%86%E5%83%8F%E7%B4%A0%EF%BC%89"><span class="toc-text">设备独立像素 vs css像素（逻辑像素）vs 设备像素（物理像素）</span></a></li></ol>
+    
+    <div class="picture-container">
+      
+    </div>
+    <p>&nbsp;&nbsp;没自己动手实操前，一直感觉适配很难，以为要写一大堆代码才能在不同型号的设备上达到令人满意的效果。但奈何现在有那么多功能强大的插件，太方便了！比如：<strong>postcss-px-to-viewport</strong>。</p>
+<p>&nbsp;&nbsp;之前写过的一些需求，都很巧妙地让我避开了这个问题，写css的时候，设计稿上给多少写多少，，单位也还是用的px，但出乎意料地在不同型号的设备上都可以正常渲染，疑惑疑惑…后面debug的时候发现，唉？我单位咋变成 <code>vw</code>了，怪不得呢，怪不得没问题。</p>
+<p><img src="/static/images/debug.jpg" alt="哦豁，加载失败喽！"></p>
+<p>&nbsp;&nbsp;肯定是有什么插件帮我干了这件事儿，于是去搜索了一番，果然，我司用的是<strong>postcss-px-to-viewport</strong>，它会根据我们配置文件中配置的视口宽度，将我们项目里 css 文件中的所有 px 单位转为 vw。然后就又去review了一下各种单位还不同类型像素的区别，这下算是清晰了很多…</p>
+<h4 id="px-vw-vh-em-rem"><a href="#px-vw-vh-em-rem" class="headerlink" title="px vw/vh em/rem %"></a>px vw/vh em/rem %</h4><ul>
+<li><p><strong>px</strong> 对应的是 css 像素（逻辑像素），在不同型号的设备上，1px 对应的大小会因为分辨率、像素比、设备像素（物理像素）的不同而不同</p>
+</li>
+<li><p><strong>vw/vh</strong>相对单位，分别相对于视口的宽度和高度。以 vw 为例，会把视口的宽度分为 100 份，那 20vw ，就是 20% 视口宽度的长度。</p>
+</li>
+<li><p><strong>em/rem</strong> 相对单位，都相对于字体大小。em 相对于当前对象文本的字体大小，如果没指定，就默认 16px。rem 相对于 HTML 根元素的字体大小，没指定也是 16px ，但因为 16px 不太好转换，所以我们可以指定 font-size: 62.5% ，这样 font-size 就是 10px ，相对于 10px 转换时计算量就少很多。</p>
+</li>
+<li><p><strong>%</strong> 相对单位，相对于父元素高度。for 普通盒子，那就是相对于父盒子、for absolute定位的盒子，那就是相对于最近的已定位的祖(先)盒子、for fixed定位的盒子，那就是相对于 viewport视口。</p>
+</li>
+</ul>
+<h4 id="设备独立像素-vs-css像素（逻辑像素）vs-设备像素（物理像素）"><a href="#设备独立像素-vs-css像素（逻辑像素）vs-设备像素（物理像素）" class="headerlink" title="设备独立像素 vs css像素（逻辑像素）vs 设备像素（物理像素）"></a>设备独立像素 vs css像素（逻辑像素）vs 设备像素（物理像素）</h4><ul>
+<li><p><strong>设备独立像素</strong> 是一种抽象的度量单位。如 CSS 中的 ‘px’ 、Android中的”dp”、iOS中的”pt”等。</p>
+</li>
+<li><p><strong>css像素</strong> 又称逻辑像素，1px 就是一个 css 像素，但是 1个 css 像素在不同设备上的呈现大小又是不同的。因为渲染时逻辑像素会被转化为物理像素，而转换关系是不同的。</p>
+</li>
+<li><p><strong>物理像素</strong> 又称设备像素，指设备能控制显示的最小物理单位。不同设备上不同。</p>
+</li>
+<li><p><strong>设备像素比(dpr)</strong>  物理像素到逻辑像素的转换关系 = 物理像素/逻辑像素</p>
+</li>
+<li><p><strong>分辨率</strong> 通常表示为 m * n，指的是设备屏幕上的水平像素数 * 垂直像素数</p>
+</li>
+<li><p><strong>每英寸像素数ppi</strong> 表示每英寸的像素数目。在移动端中的标准屏幕(160ppi)下 1 个独立设备像素 = 1 个设备像素</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;哈哈哈哈，插播一段，上面刚说之前的需求没遇到适配问题，but就在刚刚，就在 1min 前就打脸了。哥哥，错了…哈哈哈哈，现在的我也不懂当时的我…</p>
+<p><img src="/static/images/%E4%B8%8D%E6%98%AF%E5%BE%88%E6%87%82.jpg" alt="哦豁，加载失败喽！"></p>
+<p>&nbsp;&nbsp;ok，拉回来，为什么用 vw 就可以较好地解决适配问题，因为视觉上我们认为在不同设备上渲染的效果相同其实看的是各元素在屏幕上所占的比率，比如一个盒子位于屏幕中间，整个宽度占屏幕的 80% ，距离屏幕边缘 10% ，右边缘 10% ，说到这也就不用多解释了…</p>
+<p>&nbsp;&nbsp;除了上述方法可以实现适配，还有<strong>媒体查询</strong>、<strong>弹性盒子</strong>（比如flex布局，只能说好好用，基本上都用的flex布局）</p>
+<p>下面就是一段比较简单的媒体查询代码：</p>
+<p><img src="/static/images/media.jpg" alt="哦豁，加载失败喽！"></p>
+<p>实现了根据设备屏幕宽度来设置不同的字体大小。</p>
+
+
+  </article>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+    
+
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Lsd begin at 2022
+    </div>
+    <div class="secondrow">
+        <a target="_blank" rel="noopener" href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
