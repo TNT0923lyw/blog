@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  <meta name="referrer" content="unsafe-url">
+  
+  <title>review 执行上下文(作用域链) and 闭包</title>
+  <meta name="author" content="John Doe">
+  <meta name="description" content="执行上下文(作用域链)闭包的实现取决于JS的作用域链机制，而作用域链本质是执行上下文的一个属性，所以我们先从执行上下文说起、
+
+执行上下文是一个抽象的概念，它记录着 JS 代码执行时的环境信息。
+
+执行上下文可分为全局上下文和函数上下文，每个函数都有自己的函数上下文。有下文栈来暂时存放这些上下文，位">
+  
+  
+  <meta property="og:title" content="review 执行上下文(作用域链) and 闭包"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="小刘&#39;s blog"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="小刘&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="main-ctnr">
+      <div class="behind">
+  <a href="/" class="back black-color">
+    <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+        <path d="M2 30 L30 2 M30 30 L2 2"></path>
+    </svg>
+  </a>
+  
+</div>
+
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        review 执行上下文(作用域链) and 闭包
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      <time datetime="2024-04-09T09:35:33.000Z" itemprop="datePublished">
+  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2024-04-09
+</time>
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/前端up向/">前端up向</a>
+
+
+    </div>
+    <hr>
+    
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87-%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE"><span class="toc-text">执行上下文(作用域链)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AD%E5%8C%85"><span class="toc-text">闭包</span></a></li></ol>
+    
+    <div class="picture-container">
+      
+    </div>
+    <h4 id="执行上下文-作用域链"><a href="#执行上下文-作用域链" class="headerlink" title="执行上下文(作用域链)"></a>执行上下文(作用域链)</h4><p>闭包的实现取决于JS的作用域链机制，而作用域链本质是执行上下文的一个属性，所以我们先从执行上下文说起、</p>
+<blockquote>
+<p><code>执行上下文</code>是一个抽象的概念，它记录着 JS 代码执行时的环境信息。</p>
+</blockquote>
+<p>执行上下文可分为<strong>全局上下文</strong>和<strong>函数上下文</strong>，每个函数都有自己的函数上下文。有下文栈来暂时存放这些上下文，位于栈底的永远是全局上下文， 每执行一个函数，JS都会为该函数创建函数执行上下文，并将其压入栈，等函数执行完毕后，又会将其从栈中弹出。</p>
+<p>执行上下文都有些什么属性？</p>
+<ul>
+<li><p>变量对象：保存了在上下文中定义的变量和函数声明，如果是函数上下文，还会存传入函数的参数。【只有 var 声明的变量才会被存入变量对象中】</p>
+</li>
+<li><p>作用域链：由父级上下文的变量对象组成的链表，末尾是全局上下文的变量对象，即 window。</p>
+</li>
+<li><p>this指针</p>
+</li>
+</ul>
+<blockquote>
+<p><code>作用域</code>是源码中定义变量的区域，它规定了程序如何查找变量， 以及对变量的访问权限。</p>
+</blockquote>
+<p>JS的作用域是静态(词法)作用域，即函数的作用域在函数定义的时候就已经确定了。函数内部有一个属性 <strong>[[scope]]</strong> ，当函数创建的时候，就会保存其所有父级上下文的变量对象到其中。</p>
+<p>all in all：</p>
+<p><strong>函数被定义时：</strong></p>
+<ul>
+<li>保存父级作用域链到函数内部的[[scope]]属性中</li>
+</ul>
+<p><strong>函数执行前准备工作：</strong></p>
+<ul>
+<li>为其创建上下文，并将它压入上下文栈中</li>
+<li>在上下文中初始化作用域链属性(复制函数中的[[scope]]属性)</li>
+<li>初始化变量对象，并将它放到作用域链的最前端</li>
+</ul>
+<p><strong>开始执行函数：</strong></p>
+<ul>
+<li>在执行过程中，不断修改变量对象的属性值</li>
+</ul>
+<p><strong>执行完毕后：</strong></p>
+<ul>
+<li>将函数上下文从上下文栈中弹出</li>
+</ul>
+<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><blockquote>
+<p><code>闭包</code>是一个函数及其周围环境状态的引用的组合。闭包可以让开发者从内部函数访问外部函数的作用域。（它的实现得益于上文讲的作用域链）。</p>
+</blockquote>
+<p><img src="/static/images/%E9%97%AD%E5%8C%851.jpg" alt="hh"></p>
+<p>如上图，foo 函数执行完毕后会返回 “localscope” ，但是当 foo 函数执行的时候，checkscope 函数明明已经执行完毕了，它的函数上下文也已经从栈中弹出了，为什么还能访问到该函数作用域下定义的变量呢？</p>
+<p>是因为 foo 函数的执行上下文维护了一条作用域链：</p>
+<p><img src="/static/images/%E9%97%AD%E5%8C%852.jpg" alt="hh"></p>
+<p>正是因为 JS 做到了这一点，才会有闭包这个概念。下面看一道经典面试题：</p>
+<p><img src="/static/images/%E9%97%AD%E5%8C%853.jpg" alt="hh"></p>
+<p>会发现执行的结果是 3 3 3，是因为当执行 data[0]函数的时候，<br>data[0] 函数的作用域链为：</p>
+<p><img src="/static/images/%E9%97%AD%E5%8C%854.jpg" alt="hh"></p>
+<p>而 data[0]函数的变量对象 AO 中并没有 i 的值， 所以会去 globalContext.VO 中查找，因为 i 是在全局作用域下用 var 声明的变量，即全局共享，而此时 for 循环已经执行完后，所以 i 的值为 3。</p>
+<p>但如果我们就想要输出0、1、2，如何解决由闭包造成的问题呢？</p>
+<p>(1) for 循环中使用 let 声明</p>
+<p>使用 let 声明的变量具有块级作用域，for循环的实质是，一块代码重复执行多次，所以如果改用 let ，每次循环迭代的代码块都会创建一个新的变量副本，确保在每个循环迭代中的变量都是独立的。</p>
+<p>(2) IIFE </p>
+<p><img src="/static/images/%E9%97%AD%E5%8C%855.jpg" alt="hh"></p>
+<p>用 IIFE 可以，作用域链就会多维护一个匿名函数的变量对象，因为 i 是作为匿名函数的参数传进去的，所以就会记录下每次传进去的值</p>
+
+
+  </article>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+    
+
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Lsd begin at 2022
+    </div>
+    <div class="secondrow">
+        <a target="_blank" rel="noopener" href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
