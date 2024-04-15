@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  <meta name="referrer" content="unsafe-url">
+  
+  <title>关于JS数据类型</title>
+  <meta name="author" content="John Doe">
+  <meta name="description" content="JS的数据类型可分为：简单数据类型(原始数据类型)、复杂数据类型(引用数据类型)
+
+1.1 简单数据类型(七个)：
+number
+string
+undefined
+null
+boolean
+symbol
+bigInt (以n结尾) 解决大数值精度丢失的问题
+以 n 结尾，12345677777777">
+  
+  
+  <meta property="og:title" content="关于JS数据类型"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="小刘&#39;s blog"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="小刘&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="main-ctnr">
+      <div class="behind">
+  <a href="/" class="back black-color">
+    <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+        <path d="M2 30 L30 2 M30 30 L2 2"></path>
+    </svg>
+  </a>
+  
+</div>
+
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        关于JS数据类型
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      <time datetime="2024-04-15T03:31:29.000Z" itemprop="datePublished">
+  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2024-04-15
+</time>
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/前端up向/">前端up向</a>
+
+
+    </div>
+    <hr>
+    
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E4%B8%83%E4%B8%AA-%EF%BC%9A"><span class="toc-text">1.1 简单数据类型(七个)：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">1.2 复杂数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E5%8E%9F%E5%A7%8B%E5%80%BC%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B%EF%BC%88%E8%A3%85%E7%AE%B1%EF%BC%89"><span class="toc-text">1.3 原始值包装类型（装箱）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-typeof-%E5%85%AB%E4%B8%AA%E8%BF%94%E5%9B%9E%E5%80%BC%E3%80%81%E4%B8%94%E4%BB%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%BD%A2%E5%BC%8F%E8%BF%94%E5%9B%9E"><span class="toc-text">2.1 typeof 八个返回值、且以字符串的形式返回</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-instanceof-%E5%8F%AA%E8%83%BD%E5%88%A4%E6%96%AD%E5%BC%95%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%8C%E4%B8%8D%E8%83%BD%E5%88%A4%E6%96%AD%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.2 instanceof 只能判断引用数据类型，不能判断简单数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-constructor"><span class="toc-text">2.3 constructor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-Object-prototype-toString-call"><span class="toc-text">2.4 Object.prototype.toString.call()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E9%9A%90%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E8%A7%84%E5%88%99"><span class="toc-text">3.1 隐式类型转换规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E8%A1%A5%E3%80%91"><span class="toc-text">【补】</span></a></li></ol>
+    
+    <div class="picture-container">
+      
+    </div>
+    <blockquote>
+<p>JS的数据类型可分为：简单数据类型(原始数据类型)、复杂数据类型(引用数据类型)</p>
+</blockquote>
+<h4 id="1-1-简单数据类型-七个-："><a href="#1-1-简单数据类型-七个-：" class="headerlink" title="1.1 简单数据类型(七个)："></a>1.1 简单数据类型(七个)：</h4><ul>
+<li>number</li>
+<li>string</li>
+<li>undefined</li>
+<li>null</li>
+<li><strong>boolean</strong></li>
+<li>symbol</li>
+<li>bigInt (以n结尾) 解决大数值精度丢失的问题<ul>
+<li>以 n 结尾，123456777777777777n</li>
+<li>可以进行加减乘除 ，除的话会保留整数</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-复杂数据类型"><a href="#1-2-复杂数据类型" class="headerlink" title="1.2 复杂数据类型"></a>1.2 复杂数据类型</h4><p>常见复杂数据类型：</p>
+<ul>
+<li>对象 obj</li>
+<li>数组 arr</li>
+<li>函数 fun</li>
+<li>日期 date</li>
+<li>正则 regexp</li>
+<li>map 、set</li>
+</ul>
+<h4 id="1-3-原始值包装类型（装箱）"><a href="#1-3-原始值包装类型（装箱）" class="headerlink" title="1.3 原始值包装类型（装箱）"></a>1.3 原始值包装类型（装箱）</h4><blockquote>
+<p>在 JS 中，<strong>原始值（基本数据）类型是没有属性和方法的</strong>，但是为便于操作基本数据类型，ES 提供了三种特殊的引用类型 —– 原始值包装类型。<code>Boolean 、Number 、String</code>。即它们仨是在它们原来的基础上进行包装，给它们赋予一些属性和方法！！！</p>
+</blockquote>
+<p>每当使用到原始值的方法或属性时，后台都会创建一个相应的原始值包装类型的对象，步骤如下：</p>
+<ul>
+<li>创建对应原始值包装类型的对象</li>
+<li>调用相关方法 or 属性（length）</li>
+<li>立马销毁对象</li>
+</ul>
+<p>(1) &lt;==&gt; Number(1)</p>
+<h4 id="2-1-typeof-八个返回值、且以字符串的形式返回"><a href="#2-1-typeof-八个返回值、且以字符串的形式返回" class="headerlink" title="2.1 typeof 八个返回值、且以字符串的形式返回"></a>2.1 typeof 八个返回值、且以字符串的形式返回</h4><ul>
+<li>“number”</li>
+<li>“string”</li>
+<li>“boolean”</li>
+<li>“undefined”</li>
+<li>“symbol”</li>
+<li>“bigint”</li>
+<li>“object” // 复杂数据类型(除了 func) 、null 都返回 object</li>
+<li>“function”</li>
+</ul>
+<h4 id="2-2-instanceof-只能判断引用数据类型，不能判断简单数据类型"><a href="#2-2-instanceof-只能判断引用数据类型，不能判断简单数据类型" class="headerlink" title="2.2 instanceof 只能判断引用数据类型，不能判断简单数据类型"></a>2.2 instanceof 只能判断引用数据类型，不能判断简单数据类型</h4><p>A instanceof B 判断 A 是不是 B 的实例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(String instanceof Object) // true</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-constructor"><a href="#2-3-constructor" class="headerlink" title="2.3 constructor"></a>2.3 constructor</h4><ul>
+<li>原型对象 or 对象实例通过<code>constructor</code>方法访问它的构造函数。</li>
+</ul>
+<blockquote>
+<p>所以，除了基本引用类型，一些特 JS <strong>内置的对象</strong>还有<strong>原始值包装类型的对象</strong>都有<code>constructor</code>和<code>__proto__</code>属！！！</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(&#x27;1&#x27;.constructor === String) // true</span><br><span class="line">console.log((1).constructor === Number) // true</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-Object-prototype-toString-call"><a href="#2-4-Object-prototype-toString-call" class="headerlink" title="2.4 Object.prototype.toString.call()"></a>2.4 Object.prototype.toString.call()</h4><blockquote>
+<p>使用的是 <code>Object 原型上的 toString 方法</code> ，而不是要检测的东西上的 toString 方法，因为像 Array、function等类型作为 Object 的实例都<strong>重写了 toString 方法，</strong> 所以如果直接在数组实例上调用 [ 1 , 2 , 3 ].toString() ，那么得到的是该数组元素组成的字符串！！！！</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log((1).toString()) // &#x27;1&#x27;</span><br><span class="line">console.log(Object.prototype.toString.call(1))  //[object Number]</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-1-隐式类型转换规则"><a href="#3-1-隐式类型转换规则" class="headerlink" title="3.1 隐式类型转换规则"></a>3.1 隐式类型转换规则</h4><blockquote>
+<p>JS 中的隐式类型转换一般发生在<code>+ - * /</code> 以及 <code>== &gt; &lt; !</code> 操作符之间。<em>因为这些操作符只能操作原始值类型</em>，所以如果是对象，就会先调用 valueOf() 方法，如果返回的是原始值类型，就直接返回，如果不是，就接着调用 toString() 方法！！！</p>
+</blockquote>
+<ul>
+<li><code>+</code> 【主 string】</li>
+<li><code>- * / </code> 【主 string】，有不是 number 的就返回 NaN</li>
+<li><code>&gt; &lt;</code> 【主 number】 ，有 NaN 就返回 false</li>
+<li><code>== !=</code> 【主 nuber】， 有 NaN 就返回 false</li>
+</ul>
+<h4 id="【补】"><a href="#【补】" class="headerlink" title="【补】"></a>【补】</h4><ul>
+<li>二进制： 0b….</li>
+<li>八进制： 0o….</li>
+<li>十六进制： 0x….</li>
+</ul>
+
+
+  </article>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+    
+
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Lsd begin at 2022
+    </div>
+    <div class="secondrow">
+        <a target="_blank" rel="noopener" href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
