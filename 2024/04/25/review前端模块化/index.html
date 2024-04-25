@@ -108,36 +108,39 @@
 </ul>
 </li>
 </ul>
-<p>回到昨天的问题，为什么大多数浏览器已经支持了 ES Modules ，也就是说可以在 js 文件里使用 import ，但是还是出错不执行。真相只有一个 —&gt; 你没按规则使用呗(不好意思，比较喜欢用第二人称骂自己，没有一点骂你们的意思哈哈)</p>
+<p>回到问题，为什么大多数浏览器已经支持了 ES Modules ，也就是说可以在 js 文件里使用 import且在较新版本的浏览器上应该是可以正常执行的。但是为啥就是不执行。真相只有一个 —&gt; 你没按规则使用呗(如果有人读到这里，不好意思，比较喜欢用第二人称骂自己，没有一点骂你们的意思啊哈哈)</p>
 <p>那来看看 import 都有哪些要遵守的点：</p>
 <ul>
 <li><p><strong>&lt; script type=”module” &gt;</strong> 告诉浏览器用处理模块的模式执行该文件</p>
 </li>
 <li><p><strong>模块只通过 HTTP(s) 工作，而非本地</strong>。即如果用 file:// 协议在本地打开一个网页，import/export 是不起作用的。（昨天问题的根源）</p>
 <ul>
-<li>解决方法，把代码在 web 服务器上跑起来，可以 npm run start（如果有的话），或者用编辑器的扩展插件（eg：vscode上的 Live Server Extension ）</li>
+<li>解决方法，把代码在 web 服务器上跑起来，可以 npm run start（如果配置了有的话），或者用编辑器的扩展插件（eg：vscode上的 Live Server Extension ）</li>
 </ul>
 </li>
 <li><p><strong>不允许裸模块</strong> 即 import 必须给出相对或绝对的 URL 路径。</p>
 <ul>
-<li>import {sayHello} from ‘sayHello’ 是行的。import {sayHello} from ‘./sayHello’</li>
-<li>好，我又有疑问，那我平时直接 import React from ‘react’ 怎么说？其实还是打包工具帮我们转译了哈哈</li>
+<li>import {sayHello} from ‘sayHello’ 是不行的。import {sayHello} from ‘./sayHello’是行的嘿嘿</li>
+<li>好，我又有疑问，那我平时直接 import React from ‘react’ 怎么说？其实还是打包工具帮我们转译了才得以正常运行哈哈</li>
 </ul>
 </li>
 </ul>
 <h4 id="ES-Modules-VS-CommonJS"><a href="#ES-Modules-VS-CommonJS" class="headerlink" title="ES Modules VS CommonJS"></a>ES Modules VS CommonJS</h4><p>不同点：</p>
 <ul>
-<li>使用语法：<pre><code> - ES Modules 使用 export 和 import 导入导出
- - CommonJS 使用 module.exports 和 require 导入导出
-</code></pre>
+<li>使用语法不一样：<ul>
+<li>ES Modules 使用 export 和 import 导入导出</li>
+<li>CommonJS 使用 module.exports 和 require 导入导出</li>
+</ul>
 </li>
-<li>导出的值不一样<pre><code> - `ES Modules 导出的是值的引用`，
- - `CommonJS 导出的的是值的拷贝`，也就是说一旦导出，那模块内部再怎么变也不会影响已经导出的内容。
-</code></pre>
+<li>导出的值不一样<ul>
+<li><code>ES Modules 导出的是值的引用</code></li>
+<li><code>CommonJS 导出的的是值的拷贝</code>，也就是说一旦导出，那模块内部再怎么变也不会影响已经导出的内容。</li>
+</ul>
 </li>
-<li>导入方式不一样<pre><code> - ES Modules 是静态导入，即在编译时就会确定模块之间的依赖关系
- - CommonJS 是动态导入，即是在运行时确定模块之间的依赖关系
-</code></pre>
+<li>导入方式不一样<ul>
+<li>ES Modules 是静态导入，即在编译时就会确定模块之间的依赖关系</li>
+<li>CommonJS 是动态导入，即是在运行时确定模块之间的依赖关系</li>
+</ul>
 </li>
 </ul>
 
