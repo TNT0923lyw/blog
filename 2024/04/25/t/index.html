@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  <meta name="referrer" content="unsafe-url">
+  
+  <title>review前端模块化</title>
+  <meta name="author" content="hhlsdhh">
+  <meta name="description" content="关于前端模块化，听是肯定听过，学也学过，平常的开发也一直在用（import、export…）。但具体的原理以及规则没有特别搞清楚，所以就导致了昨天下午被一个现在想想很xx的错误卡了很久，最后不得不向 mentor 发起SOS信号哈哈。
+ 背景：在项目里的 html 文件里导入 js 文件，但是 js">
+  
+  
+  <meta property="og:title" content="review前端模块化"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="小刘&#39;s blog"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="小刘&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="main-ctnr">
+      <div class="behind">
+  <a href="/" class="back black-color">
+    <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+        <path d="M2 30 L30 2 M30 30 L2 2"></path>
+    </svg>
+  </a>
+  
+</div>
+
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        review前端模块化
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      <time datetime="2024-04-25T01:55:43.000Z" itemprop="datePublished">
+  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2024-04-25
+</time>
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/实习-in-bcz/">实习 in bcz</a>
+
+
+
+
+
+    </div>
+    <hr>
+    
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-JS-%E7%9A%84%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83-node-js-VS-%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%88%E6%8F%92%E6%92%AD%E4%B8%80%E6%AE%B5%EF%BC%89"><span class="toc-text">关于 JS 的执行环境: node.js VS 浏览器（插播一段）</span></a></li></ol>
+    
+    <div class="picture-container">
+      
+    </div>
+    <p> 关于前端模块化，听是肯定听过，学也学过，平常的开发也一直在用（import、export…）。但具体的原理以及规则没有特别搞清楚，所以就导致了昨天下午被一个现在想想很xx的错误卡了很久，最后不得不向 mentor 发起SOS信号哈哈。</p>
+<p> 背景：在项目里的 html 文件里导入 js 文件，但是 js 文件不执行。心想这怎么会，这不应该啊，我不信）于是又自己开了一个 html 文件，同样的操作，执行了，alert 执行了。好得很，这下彻底不会了，怎么回事？环境的问题，也没啥问题啊，一样的啊，项目里的我也没打包直接用浏览器打开的啊。js 文件里代码的问题？代码也一样啊，都是一样的 alert 啊（原谅当时的自己有点眼瞎 –&gt; 项目里的多了两行 import ，因为引入的内容没使用，所以它默认置灰了，but 眼拙的我以为是被我注释了…so…）原因也就出在 import 这里。</p>
+<p><img src="/static/images/%E6%A8%A1%E5%9D%971.jpg" alt="哦豁，加载失败喽！"></p>
+<p>眼瞎的证据如上！</p>
+<h4 id="关于-JS-的执行环境-node-js-VS-浏览器（插播一段）"><a href="#关于-JS-的执行环境-node-js-VS-浏览器（插播一段）" class="headerlink" title="关于 JS 的执行环境: node.js VS 浏览器（插播一段）"></a>关于 JS 的执行环境: node.js VS 浏览器（插播一段）</h4><p>它们两个都使用 JS 作为编程语言，主要区别如下：</p>
+<ul>
+<li><p><strong>所做的操作不同：</strong></p>
+<ul>
+<li><p>在浏览器中我们大多要与 DOM 进行一些交互。</p>
+</li>
+<li><p>在 node 中我们大多要与文件、数据库等进行交互。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>拥有的对象不同：</strong></p>
+<ul>
+<li>方便我们操作，浏览器会为我们提供<code>document</code>、<code>window</code> 等对象</li>
+<li>而 node 没有上述两个对象，取而代之的是 <code>global</code> 。且 node 为我们内置了许多优秀的模块，如文件系统…</li>
+</ul>
+</li>
+<li><p><strong>对模块化的支持不同：</strong></p>
+<pre><code> - 浏览器前比较广泛地支持ES Modules。但因为ES Modules是 ES6 新特性，所以有些版本较低的浏览器不支持，也需要我们用 babel 对其进行转译，向后兼容&quot;翻译&quot;为浏览器可以识别的语法。
+ - node (从v12开始) 同时支持 CommonJS 和 ES Modules
+</code></pre>
+</li>
+</ul>
+<p>回到昨天的问题，为什么大多数浏览器已经支持了 ES Modules ，也就是说可以在 js 文件里使用 import ，但是还是出错不执行。真相只有一个 —&gt; 你没按规则使用呗(不好意思，比较喜欢用第二人称骂自己，没有一点骂你们的意思哈哈)</p>
+<p>那来看看 import 都有哪些要遵守的点：</p>
+<ul>
+<li><p><strong><script type="module"></strong> 告诉浏览器用处理模块的模式执行该文件</p>
+</li>
+<li><p><strong>模块只通过 HTTP(s) 工作，而非本地</strong>。即如果用 file:// 协议在本地打开一个网页，import/export 是不起作用的。（昨天问题的根源）</p>
+<ul>
+<li>解决方法，把代码在 web 服务器上跑起来，可以 npm run start（如果有的话），或者用编辑器的扩展插件（eg：vscode上的 Live Server Extension ）</li>
+</ul>
+</li>
+<li><p><strong>不允许裸模块</strong> 即 import 必须给出相对或绝对的 URL 路径。</p>
+<ul>
+<li>import {sayHello} from ‘sayHello’ 是行的。import {sayHello} from ‘./sayHello’</li>
+<li>好，我又有疑问，那我平时直接 import React from ‘react’ 怎么说？其实还是打包工具帮我们转译了哈哈</li>
+</ul>
+</li>
+</ul>
+<h4 id="ES-Modules-VS-CommonJS"><a href="#ES-Modules-VS-CommonJS" class="headerlink" title="ES Modules VS CommonJS"></a>ES Modules VS CommonJS</h4><p>不同点：</p>
+<ul>
+<li>使用语法：<pre><code> - ES Modules 使用 export 和 import 导入导出
+ - CommonJS 使用 module.exports 和 require 导入导出
+</code></pre>
+</li>
+<li>导出的值不一样<pre><code> - `ES Modules 导出的是值的引用`，
+ - `CommonJS 导出的的是值的拷贝`，也就是说一旦导出，那模块内部再怎么变也不会影响已经导出的内容。
+</code></pre>
+</li>
+<li>导入方式不一样<pre><code> - ES Modules 是静态导入，即在编译时就会确定模块之间的依赖关系
+ - CommonJS 是动态导入，即是在运行时确定模块之间的依赖关系
+</code></pre>
+</li>
+</ul>
+
+
+  </article>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+    
+
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Lsd begin at 2022
+    </div>
+    <div class="secondrow">
+        <a target="_blank" rel="noopener" href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
