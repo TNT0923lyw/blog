@@ -76,7 +76,7 @@
     </div>
     <hr>
     
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-JS-%E7%9A%84%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83-node-js-VS-%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%88%E6%8F%92%E6%92%AD%E4%B8%80%E6%AE%B5%EF%BC%89"><span class="toc-text">关于 JS 的执行环境: node.js VS 浏览器（插播一段）</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-JS-%E7%9A%84%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83-node-js-VS-%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%88%E6%8F%92%E6%92%AD%E4%B8%80%E6%AE%B5%EF%BC%89"><span class="toc-text">关于 JS 的执行环境: node.js VS 浏览器（插播一段）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ES-Modules-VS-CommonJS"><span class="toc-text">ES Modules VS CommonJS</span></a></li></ol>
     
     <div class="picture-container">
       
@@ -111,7 +111,7 @@
 <p>回到昨天的问题，为什么大多数浏览器已经支持了 ES Modules ，也就是说可以在 js 文件里使用 import ，但是还是出错不执行。真相只有一个 —&gt; 你没按规则使用呗(不好意思，比较喜欢用第二人称骂自己，没有一点骂你们的意思哈哈)</p>
 <p>那来看看 import 都有哪些要遵守的点：</p>
 <ul>
-<li><p><strong><script type="module"></strong> 告诉浏览器用处理模块的模式执行该文件</p>
+<li><p><strong>&lt; script type=”module” &gt;</strong> 告诉浏览器用处理模块的模式执行该文件</p>
 </li>
 <li><p><strong>模块只通过 HTTP(s) 工作，而非本地</strong>。即如果用 file:// 协议在本地打开一个网页，import/export 是不起作用的。（昨天问题的根源）</p>
 <ul>
