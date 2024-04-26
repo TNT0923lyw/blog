@@ -11,16 +11,15 @@
   <title>react-query</title>
   <meta name="author" content="hhlsdhh">
   <meta name="description" content="前端要管理的状态可分为两类：
+(1) 用户交互的中间状态，比如 弹窗的关闭与否isOpen …
 
-用户交互的中间状态，比如 弹窗的关闭与否isOpen …
- - 状态以同步的形式更新
+状态以同步的形式更新
+往往只在所在组件使用，比较独立 ，经常用useState()。当需要在组件间传递时，可以用 Context API或Redux。
+完全由前端控制
 
- - 往往只在所在组件使用，比较独立 ，经常用 useState() 。当需要在组件间传递时，可以用 `Context API`或`Redux`。
- 
- - 完全由前端控制
+(2) 后端返回的数据
 
-
-后">
+数据以">
   
   
   <meta property="og:title" content="react-query"/>
@@ -85,36 +84,29 @@
     </div>
     <hr>
     
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#react-query"><span class="toc-text">react-query</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-useQuery-%E6%89%A7%E8%A1%8C%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">(1) useQuery() 执行数据查询操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-useQueryClient-%E8%BF%94%E5%9B%9E-queryClient%E5%AE%9E%E4%BE%8B-%E5%B8%B8%E4%B8%8E%E7%BC%93%E5%AD%98%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92"><span class="toc-text">(2) useQueryClient() 返回 queryClient实例 常与缓存进行交互</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-useMutation-%E6%89%A7%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%8F%98%E6%9B%B4-%E5%A2%9E%E5%88%A0%E6%94%B9"><span class="toc-text">(3) useMutation() 执行数据变更(增删改)</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-react-query"><span class="toc-text">关于 react-query</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-useQuery-%E6%89%A7%E8%A1%8C%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">(1) useQuery() 执行数据查询操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-useQueryClient-%E8%BF%94%E5%9B%9E-queryClient%E5%AE%9E%E4%BE%8B-%E5%B8%B8%E4%B8%8E%E7%BC%93%E5%AD%98%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92"><span class="toc-text">(2) useQueryClient() 返回 queryClient实例 常与缓存进行交互</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-useMutation-%E6%89%A7%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%8F%98%E6%9B%B4-%E5%A2%9E%E5%88%A0%E6%94%B9"><span class="toc-text">(3) useMutation() 执行数据变更(增删改)</span></a></li></ol>
     
     <div class="picture-container">
       
     </div>
     <p>前端要管理的状态可分为两类：</p>
+<p>(1) 用户交互的中间状态，比如 弹窗的关闭与否isOpen …</p>
 <ul>
-<li><p>用户交互的中间状态，比如 弹窗的关闭与否isOpen …</p>
-<pre><code> - 状态以同步的形式更新
-
- - 往往只在所在组件使用，比较独立 ，经常用 useState() 。当需要在组件间传递时，可以用 `Context API`或`Redux`。
- 
- - 完全由前端控制
-</code></pre>
-</li>
-<li><p>后端返回的数据</p>
-<pre><code> - 数据以异步的形式更新
- 
- - 常常会在组件间通用，所以常常用 `Redux` 来管理。
-</code></pre>
-</li>
+<li>状态以同步的形式更新</li>
+<li>往往只在所在组件使用，比较独立 ，经常用useState()。当需要在组件间传递时，可以用 <code>Context API</code>或<code>Redux</code>。</li>
+<li>完全由前端控制</li>
 </ul>
-<p>所以用户交互的中间状态比较方便管理，而从后端返回的数据用 redux 来管理会有点问题，下面是一段常见的从后端获取数据的代码：</p>
+<p>(2) 后端返回的数据</p>
+<ul>
+<li>数据以异步的形式更新</li>
+<li>常常会在组件间通用，所以常常用 <code>Redux</code> 来管理。</li>
+</ul>
+<p>所以用户交互的中间状态比较方便管理，而从后端返回的数据直接用 redux 来管理会有点问题，下面是一段常见的从后端获取数据的代码：</p>
 <p><img src="/static/images/query1.jpg" alt="hh"></p>
 <p>(1) 需要重复请求并处理请求中间状态。如果我们在多个组件都需要知道当前请求的状态，那么 const [isLoading, setLoading] = useState(false); 这样的代码就要写 n 遍。</p>
 <p>(2) 数据的更新与缓存。不好控制重新请求更新缓存。</p>
-<p>而使用 <code>tanstack-query</code> 可以优雅地解决上述问题，tanstack-query 前身叫 react-query ，后面它又兼任了其他框架，所以改名为 tanstack-query 。</p>
-<h4 id="react-query"><a href="#react-query" class="headerlink" title="react-query"></a>react-query</h4><blockquote>
-<p>react-query 的核心是基于 <code>queryKey</code> 管理查询缓存。如果请求的发起依赖于某一变量，那么可以将其包含在 <code>   queryKey</code>数组中。<code>queryKey</code>标记着唯一的query，如果多个组件请求同一个 query ，会合并只请求一次。</p>
-</blockquote>
+<p>而使用 <code>react-query</code> 可以优雅地解决上述问题，（react-query 其实现在叫 tanstack-query ，后面它又兼任了其他框架，所以改名为 tanstack-query 。）</p>
+<h4 id="关于-react-query"><a href="#关于-react-query" class="headerlink" title="关于 react-query"></a>关于 react-query</h4><p>react-query 的核心是基于 <code>queryKey</code> 管理查询缓存。如果请求的发起依赖于某一变量，那么可以将其包含在 <code>   queryKey</code>数组中。<code>queryKey</code>标记着唯一的query，如果多个组件请求同一个 query ，会合并只请求一次。</p>
 <h4 id="1-useQuery-执行数据查询操作"><a href="#1-useQuery-执行数据查询操作" class="headerlink" title="(1) useQuery() 执行数据查询操作"></a>(1) useQuery() 执行数据查询操作</h4><p>接收三个参数 queryKey、queryFn 、options对象</p>
 <ul>
 <li><p>queryKey 上文讲过</p>
@@ -122,14 +114,12 @@
 <li><p>queryFn 实际要进行的查询操作</p>
 </li>
 <li><p>options对象，对该 query请求进行配置，常用配置有：</p>
-<pre><code>    - staleTime 重新获取数据的时间间隔 默认0
-    
-    - cacheTime数据缓存的时间，即再次拉请求更新缓存的时间间隔
-    
-    - retry 失败的重试次数
-    
-    - enabled 指定是否进行查询，默认为 true ，如果赋值为false 的话，则不会进行查询操作
-</code></pre>
+<ul>
+<li>staleTime 重新获取数据的时间间隔 默认0</li>
+<li>cacheTime数据缓存的时间，即再次拉请求更新缓存的时间间隔</li>
+<li>retry 失败的重试次数</li>
+<li>enabled 指定是否进行查询，默认为 true ，如果赋值为false 的话，则不会进行查询操作</li>
+</ul>
 </li>
 </ul>
 <p>useQuery() 返回一个查询状态对象，常用的属性：</p>
@@ -145,12 +135,11 @@
 <li><p>mutationFn: 一个异步函数，进行实际的数据变更操作</p>
 </li>
 <li><p>options：配置对象，常用配置有：</p>
-<pre><code>      - onMutate: 一个回调函数，在 mutation 开始之前同步执行。
-      
-      - onSuccess: 一个回调函数，在 mutation 成功后执行。
-      
-      - onSettled: 一个回调函数，在 mutation 结束后执行，无论是成功还是失败。该函数接收 mutation 的结果或错误对象作为参数，可以在该函数中进行收尾工作，如清除加载状态、重置表单等
-</code></pre>
+<ul>
+<li>onMutate: 一个回调函数，在 mutation 开始之前同步执行。</li>
+<li>onSuccess: 一个回调函数，在 mutation 成功后执行。</li>
+<li>onSettled: 一个回调函数，在 mutation 结束后执行，无论是成功还是失败。该函数接收 mutation 的结果或错误对象作为参数，可以在该函数中进行收尾工作，如清除加载状态、重置表单等</li>
+</ul>
 </li>
 </ul>
 
@@ -181,11 +170,11 @@
             <path d="M10 30 L26 16 10 2 Z"></path>
         </svg>
         </a>
-        © Lsd begin at 2022
+        © hhsdhh begin at 2022
     </div>
     <div class="secondrow">
         <a target="_blank" rel="noopener" href="https://github.com/gaoryrt/hexo-theme-pln">
-        Theme Pln
+        moments
         </a>
     </div>
 </div>
