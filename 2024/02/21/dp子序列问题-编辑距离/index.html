@@ -12,9 +12,9 @@
   <meta name="author" content="hhlsdhh">
   <meta name="description" content="to the leetcode
 
-&amp;nbsp;&amp;nbsp;看到两个字符串的最优解问题，就要考虑动归，那就跟着动归5部曲走嘛嘿嘿！
-(1) 定义 dp 数组&amp;nbsp;&amp;nbsp;两个字符串嘛，得是二维dp数组。dp[i][j] 就记录分别以 word1[i]、Word2[j] 结尾的最优解。
-(2)">
+看到两个字符串的最优解问题，就要考虑动归，那就跟着动归5部曲走嘛嘿嘿！
+(1) 定义 dp 数组两个字符串嘛，得是二维dp数组。dp[i][j] 就记录分别以 word1[i]、Word2[j] 结尾的最优解。
+(2) 初始化 dp 数组动归嘛，当前的状态要么就根据">
   
   
   <meta property="og:title" content="dp子序列问题-&gt;编辑距离"/>
@@ -86,18 +86,18 @@
     </div>
     <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/edit-distance/description/">to the leetcode</a></p>
 <p><img src="/static/images/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB.jpg" alt="hh"></p>
-<p>&nbsp;&nbsp;看到两个字符串的最优解问题，就要考虑动归，那就跟着<strong>动归5部曲</strong>走嘛嘿嘿！</p>
-<h4 id="1-定义-dp-数组"><a href="#1-定义-dp-数组" class="headerlink" title="(1) 定义 dp 数组"></a>(1) 定义 dp 数组</h4><p>&nbsp;&nbsp;两个字符串嘛，得是二维dp数组。dp[i][j] 就记录分别以 word1[i]、Word2[j] 结尾的最优解。</p>
-<h4 id="2-初始化-dp-数组"><a href="#2-初始化-dp-数组" class="headerlink" title="(2) 初始化 dp 数组"></a>(2) 初始化 dp 数组</h4><p>&nbsp;&nbsp;动归嘛，当前的状态要么就根据之前的状态决定，要么就根据后面的状态决定！即从上而下的递归 or 从下而上的递归，两种要初始化的范围是不一样滴！</p>
-<p>&nbsp;&nbsp;本题选择从上而下的递归，那就分别初始化 dp[i][0] (i 从 0 到 len1) 、dp[0][j] (j 从 0 到 len2)。 初始化为多少嘞，以 dp[i][0] 为例，那就是 以 i 结尾的 word1 子串 =&gt; word2(此时为空串””)所需要的最小操作数，那其实就是 word1 子串的长度嘛 ，挨个删，直到删为空””</p>
-<h4 id="3-状态转移方程"><a href="#3-状态转移方程" class="headerlink" title="(3) 状态转移方程"></a>(3) 状态转移方程</h4><p>&nbsp;&nbsp;每次的转化操作都有 6 种：word1 增 / word2 增 / word1 删 / word2 删 / word1 替换 / word2 替换。但其实有的操作效果是一样的：word1 增 &lt;=&gt; word2 删 、word1 删 &lt;=&gt; word2 增 、word1 替换 &lt;=&gt; word2 替换。<strong>因为我们是从上而下的递归，</strong>那其实就总共有 3 种：word1 增 、word2 增 、word1 替换。</p>
+<p>看到两个字符串的最优解问题，就要考虑动归，那就跟着<strong>动归5部曲</strong>走嘛嘿嘿！</p>
+<h4 id="1-定义-dp-数组"><a href="#1-定义-dp-数组" class="headerlink" title="(1) 定义 dp 数组"></a>(1) 定义 dp 数组</h4><p>两个字符串嘛，得是二维dp数组。dp[i][j] 就记录分别以 word1[i]、Word2[j] 结尾的最优解。</p>
+<h4 id="2-初始化-dp-数组"><a href="#2-初始化-dp-数组" class="headerlink" title="(2) 初始化 dp 数组"></a>(2) 初始化 dp 数组</h4><p>动归嘛，当前的状态要么就根据之前的状态决定，要么就根据后面的状态决定！即从上而下的递归 or 从下而上的递归，两种要初始化的范围是不一样滴！</p>
+<p>本题选择从上而下的递归，那就分别初始化 dp[i][0] (i 从 0 到 len1) 、dp[0][j] (j 从 0 到 len2)。 初始化为多少嘞，以 dp[i][0] 为例，那就是 以 i 结尾的 word1 子串 =&gt; word2(此时为空串””)所需要的最小操作数，那其实就是 word1 子串的长度嘛 ，挨个删，直到删为空””</p>
+<h4 id="3-状态转移方程"><a href="#3-状态转移方程" class="headerlink" title="(3) 状态转移方程"></a>(3) 状态转移方程</h4><p>每次的转化操作都有 6 种：word1 增 / word2 增 / word1 删 / word2 删 / word1 替换 / word2 替换。但其实有的操作效果是一样的：word1 增 &lt;=&gt; word2 删 、word1 删 &lt;=&gt; word2 增 、word1 替换 &lt;=&gt; word2 替换。<strong>因为我们是从上而下的递归，</strong>那其实就总共有 3 种：word1 增 、word2 增 、word1 替换。</p>
 <ul>
 <li><strong>word1 增：</strong> dp[i][j] = dp[i-1][j] + 1 ；即在 0<del>i-1 和 0</del>j 已经通过变化变为一致的情况下，只需要在 i-1 后再增加一个字符 word1[i-1] 即可。【对滴，是 word1[i-1]而不是word1[i]…】</li>
 <li><strong>word2 增：</strong> dp[i][j] = dp[i][j-1] + 1 ；同理如上</li>
 <li><strong>word1 替换：</strong> 分为两种情况，word1[i-1] 和 word2[j-1]相等，即不需要替换 dp[i][j] = dp[i-1][j-1]；不相等，需要替换 dp[i][j] = dp[i-1][j-1] + 1。</li>
 </ul>
-<p>&nbsp;&nbsp;当然每次是要取上述 3 种操作中的最小情况。那就 Math.min() 一下就行！ </p>
-<h4 id="4-迭代"><a href="#4-迭代" class="headerlink" title="(4) 迭代"></a>(4) 迭代</h4><p>&nbsp;&nbsp;就for循环迭代咯嘿嘿</p>
+<p>当然每次是要取上述 3 种操作中的最小情况。那就 Math.min() 一下就行！ </p>
+<h4 id="4-迭代"><a href="#4-迭代" class="headerlink" title="(4) 迭代"></a>(4) 迭代</h4><p>就for循环迭代咯嘿嘿</p>
 <h4 id="5-返回结果"><a href="#5-返回结果" class="headerlink" title="(5) 返回结果"></a>(5) 返回结果</h4><h4 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h4><p><img src="/static/images/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB1.jpg" alt="a"></p>
 
 

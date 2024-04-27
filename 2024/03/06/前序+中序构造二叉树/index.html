@@ -11,8 +11,8 @@
   <title>前序+中序构造二叉树(review一下几种遍历)</title>
   <meta name="author" content="hhlsdhh">
   <meta name="description" content="to the leetcode
-&amp;nbsp;&amp;nbsp;本题 -&amp;gt; 根据给出的前序和中序遍历顺序，来构造二叉树。我认为二叉树这类题都是大同小异的，变来变去就是在四种遍历(前序、中序、后序、层序)的基础上进行一些操作。
-&amp;nbsp;&amp;nbsp;刚刚读了一篇关于这四种遍历的博客，突然一下感觉豁然开">
+本题 -&amp;gt; 根据给出的前序和中序遍历顺序，来构造二叉树。我认为二叉树这类题都是大同小异的，变来变去就是在四种遍历(前序、中序、后序、层序)的基础上进行一些操作。
+刚刚读了一篇关于这四种遍历的博客，突然一下感觉豁然开朗哈哈哈哈哈【之前做二叉树的题都是直接套模板，f">
   
   
   <meta property="og:title" content="前序+中序构造二叉树(review一下几种遍历)"/>
@@ -83,16 +83,16 @@
       
     </div>
     <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/">to the leetcode</a></p>
-<p>&nbsp;&nbsp;本题 -&gt; 根据给出的前序和中序遍历顺序，来构造二叉树。我认为二叉树这类题都是大同小异的，变来变去就是在四种遍历(前序、中序、后序、层序)的基础上进行一些操作。</p>
-<p>&nbsp;&nbsp;刚刚读了一篇关于这四种遍历的博客，突然一下感觉豁然开朗哈哈哈哈哈【之前做二叉树的题都是直接套模板，for example：需要前序遍历解决问题就 some操作—&gt; dfs(node.left) -&gt; dfs(node.right) ；中序遍历就 dfs(node.left) -&gt; some操作 —&gt;  dfs(node.right) ；那后续遍历就  dfs(node.left) -&gt; dfs(node.right) -&gt; some操作 】然后咱们就是转述一下这篇博客的大概内容哈：</p>
+<p>本题 -&gt; 根据给出的前序和中序遍历顺序，来构造二叉树。我认为二叉树这类题都是大同小异的，变来变去就是在四种遍历(前序、中序、后序、层序)的基础上进行一些操作。</p>
+<p>刚刚读了一篇关于这四种遍历的博客，突然一下感觉豁然开朗哈哈哈哈哈【之前做二叉树的题都是直接套模板，for example：需要前序遍历解决问题就 some操作—&gt; dfs(node.left) -&gt; dfs(node.right) ；中序遍历就 dfs(node.left) -&gt; some操作 —&gt;  dfs(node.right) ；那后续遍历就  dfs(node.left) -&gt; dfs(node.right) -&gt; some操作 】然后咱们就是转述一下这篇博客的大概内容哈：</p>
 <p><img src="/static/images/%E9%81%8D%E5%8E%861.jpg" alt="哦豁，没加载出来"></p>
-<p>&nbsp;&nbsp;如上图所示，我们把叶子节点的左右孩子节点(为null)也加上，就不难看出，在我们围绕该二叉树的外围走一圈的过程中，如果把每一步都画上带有 direction 的箭头，那么除了根节点和为 null 的节点，其余节点都会有三个箭头指向自己！分别来自自己的<strong>父亲节点</strong> 、<strong>左孩子</strong>、<strong>右孩子</strong>。也就是说没个节点都被经过访问了三次，也就对应了<strong>前、中、后</strong>三种遍历！</p>
-<p>&nbsp;&nbsp;其实我们写的三种遍历的程序，都是按照绕着二叉树外围跑一圈的顺序来对其进行遍历的，<strong>区别在</strong> 对于每个结点，我选择在<strong>第几次访问它们的时候</strong>对它们执行某些操作(或打印或其他….)</p>
+<p>如上图所示，我们把叶子节点的左右孩子节点(为null)也加上，就不难看出，在我们围绕该二叉树的外围走一圈的过程中，如果把每一步都画上带有 direction 的箭头，那么除了根节点和为 null 的节点，其余节点都会有三个箭头指向自己！分别来自自己的<strong>父亲节点</strong> 、<strong>左孩子</strong>、<strong>右孩子</strong>。也就是说没个节点都被经过访问了三次，也就对应了<strong>前、中、后</strong>三种遍历！</p>
+<p>其实我们写的三种遍历的程序，都是按照绕着二叉树外围跑一圈的顺序来对其进行遍历的，<strong>区别在</strong> 对于每个结点，我选择在<strong>第几次访问它们的时候</strong>对它们执行某些操作(或打印或其他….)</p>
 <p><a target="_blank" rel="noopener" href="http://www.hangdaowangluo.com/archives/2979">博客详情</a></p>
 <h4 id="回到本题"><a href="#回到本题" class="headerlink" title="回到本题"></a>回到本题</h4><p><img src="/static/images/%E9%81%8D%E5%8E%86%E6%9E%84%E9%80%A0.jpg" alt="哦豁，没加载出来"></p>
-<p>&nbsp;&nbsp;给出了前序和中序遍历的结果，根据它们构造对应的二叉树。我们平常用笔画二叉树的时候，一般也是先画根节点，再画左右孩子节点的哈，那其实构建顺序就是 根-&gt;左-&gt;右 ，那就对应<strong>前序遍历构建</strong>嘛！</p>
-<p>&nbsp;&nbsp;肯定是要用递归没错了，那再想每次递归要干什么？也就是对应到：构建每个节点，我们要做些什么？(1) 初始化该节点 (2) 确定该节点的左右孩子节点（此处说孩子节点其实有点不太恰当，应该是<strong>左右子树</strong>。</p>
-<p>&nbsp;&nbsp;那下一步就是如何根据前序and中序结果确定根节点的值以及其左右子树的范围（因为左右子树的构建也是两棵二叉树的构建）。前序 &lt;-&gt; 根左右 、中序 &lt;-&gt; 左根右 、 后序 &lt;-&gt; 左右根。那前序结果中的第一个元素就是根节点嘛。确定了根节点再根据中序结果确定左右子树的范围，中序结果中的根节点左边的就是左子树，右边就是右子树嘛。剩下就递归构建咯嘿嘿！</p>
+<p>;给出了前序和中序遍历的结果，根据它们构造对应的二叉树。我们平常用笔画二叉树的时候，一般也是先画根节点，再画左右孩子节点的哈，那其实构建顺序就是 根-&gt;左-&gt;右 ，那就对应<strong>前序遍历构建</strong>嘛！</p>
+<p>肯定是要用递归没错了，那再想每次递归要干什么？也就是对应到：构建每个节点，我们要做些什么？(1) 初始化该节点 (2) 确定该节点的左右孩子节点（此处说孩子节点其实有点不太恰当，应该是<strong>左右子树</strong>。</p>
+<p>那下一步就是如何根据前序and中序结果确定根节点的值以及其左右子树的范围（因为左右子树的构建也是两棵二叉树的构建）。前序 &lt;-&gt; 根左右 、中序 &lt;-&gt; 左根右 、 后序 &lt;-&gt; 左右根。那前序结果中的第一个元素就是根节点嘛。确定了根节点再根据中序结果确定左右子树的范围，中序结果中的根节点左边的就是左子树，右边就是右子树嘛。剩下就递归构建咯嘿嘿！</p>
 <h4 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h4><p><img src="/static/images/%E9%81%8D%E5%8E%86%E6%9E%84%E9%80%A01.jpg" alt="哦豁，没加载出来"></p>
 
 

@@ -10,11 +10,8 @@
   
   <title>Bezier curve</title>
   <meta name="author" content="hhlsdhh">
-  <meta name="description" content="贝塞尔曲线
-想要绘制直线，很简单，纯 css 就可以。绘制曲线的话，纯 css 滴话，嗯… border-radius 可以绘制出来简单的弧形，复杂的搞起来就太麻烦了。所以我们经常会借助 svg 、canvas or 第三方库…
-
-
-而贝塞尔曲线是我们最经常绘制的曲线，它有一次滴、二次滴、三次滴哈哈">
+  <meta name="description" content="贝塞尔曲线想要绘制直线，很简单，纯 css 就可以。绘制曲线的话，纯 css 滴话，嗯… border-radius 可以绘制出来简单的弧形，复杂的搞起来就太麻烦了。所以我们经常会借助 svg 、canvas or 第三方库…
+而贝塞尔曲线是我们最经常绘制的曲线，它有一次滴、二次滴、三次滴哈哈哈。下">
   
   
   <meta property="og:title" content="Bezier curve"/>
@@ -84,19 +81,11 @@
     <div class="picture-container">
       
     </div>
-    <h2 id="贝塞尔曲线"><a href="#贝塞尔曲线" class="headerlink" title="贝塞尔曲线"></a>贝塞尔曲线</h2><blockquote>
-<p>想要绘制直线，很简单，纯 css 就可以。绘制曲线的话，纯 css 滴话，嗯… border-radius 可以绘制出来简单的弧形，复杂的搞起来就太麻烦了。所以我们经常会借助 svg 、canvas or 第三方库…</p>
-</blockquote>
-<blockquote>
+    <h2 id="贝塞尔曲线"><a href="#贝塞尔曲线" class="headerlink" title="贝塞尔曲线"></a>贝塞尔曲线</h2><p>想要绘制直线，很简单，纯 css 就可以。绘制曲线的话，纯 css 滴话，嗯… border-radius 可以绘制出来简单的弧形，复杂的搞起来就太麻烦了。所以我们经常会借助 svg 、canvas or 第三方库…</p>
 <p>而<strong>贝塞尔曲线</strong>是我们最经常绘制的曲线，它有一次滴、二次滴、三次滴哈哈哈。下面我们以 canvas 为例介绍一下贝塞尔曲线的绘制！</p>
-</blockquote>
 <h4 id="1-一次："><a href="#1-一次：" class="headerlink" title="(1) 一次："></a>(1) 一次：</h4><p><img src="/static/gif/%E4%B8%80%E6%AC%A1%E8%B4%9D%E5%A1%9E%E5%B0%94.gif"></p>
-<blockquote>
 <p><strong>一次</strong>其实就是线段，so 我们一般使用<strong>二次</strong>和<strong>三次</strong>的比较多。</p>
-</blockquote>
-<h4 id="2-二次："><a href="#2-二次：" class="headerlink" title="(2) 二次："></a>(2) 二次：</h4><blockquote>
-<p><strong>二次</strong> 由 1个结束点 and 1个控制点决定</p>
-</blockquote>
+<h4 id="2-二次："><a href="#2-二次：" class="headerlink" title="(2) 二次："></a>(2) 二次：</h4><p><strong>二次</strong> 由 1个结束点 and 1个控制点决定</p>
 <ul>
 <li><code>quadraticCurveTo(cp1x, cp1y, x, y)</code></li>
 <li>参数：控制点坐标 (cp1x,cp1y)  ；结束点坐标 (x,y)</li>
@@ -104,9 +93,7 @@
 <p><img src="/static/gif/%E4%BA%8C%E6%AC%A1%E8%B4%9D%E5%A1%9E%E5%B0%94.gif"></p>
 <p>如上图所示，<strong>控制点</strong>是用来控制曲线的弯曲方向的，起始点到结束点的直线会朝向控制点弯曲！</p>
 <p>假设 green line 的左端点是 D0 ，右端点是 D1，曲线的形成路径点为M。则绘制过程中始终保持 P0D0/D0P1 = P1D1 / D1P2 = D0M/MD1，这也是贝塞尔曲线的形成原理！</p>
-<h4 id="3-三次："><a href="#3-三次：" class="headerlink" title="(3) 三次："></a>(3) 三次：</h4><blockquote>
-<p><strong>三次</strong> 由 1个结束点 and 2个控制点决定</p>
-</blockquote>
+<h4 id="3-三次："><a href="#3-三次：" class="headerlink" title="(3) 三次："></a>(3) 三次：</h4><p><strong>三次</strong> 由 1个结束点 and 2个控制点决定</p>
 <ul>
 <li><code>quadraticCurveTo(cp1x, cp1y, cp2x,cp2y, x, y)</code></li>
 <li>参数：控制点1坐标 (cp1x,cp1y)  ；控制点2坐标(cp2x,cp2y) ；结束点坐标 (x,y)</li>

@@ -12,8 +12,8 @@
   <meta name="author" content="hhlsdhh">
   <meta name="description" content="to the leetcode
 
-&amp;nbsp;&amp;nbsp;我认为本题和 字符串相乘 都属于很纯的数学题，不需要什么算法的思想，会数学就行！哈哈哈哈，但是本人一开始的思路还是跑偏到 dp动归 去了…
-思路 error 版：&amp;nbsp;&amp;nbsp; dp[i] 记录以位置 i 结尾的是否可以被整除。那递">
+我认为本题和 字符串相乘 都属于很纯的数学题，不需要什么算法的思想，会数学就行！哈哈哈哈，但是本人一开始的思路还是跑偏到 dp动归 去了…
+思路 error 版：\dp[i] 记录以位置 i 结尾的是否可以被整除。那递归过程中：如果 dp[i-1]可以，dp[i] ">
   
   
   <meta property="og:title" content="字符串的可整除数组"/>
@@ -85,9 +85,9 @@
     </div>
     <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-divisibility-array-of-a-string/description/?envType=daily-question&envId=2024-03-07">to the leetcode</a></p>
 <p><img src="/static/images/%E6%95%B4%E9%99%A4%E6%95%B0%E7%BB%841.jpg" alt="哦豁，没加载出来"></p>
-<p>&nbsp;&nbsp;我认为本题和 <a target="_blank" rel="noopener" href="http://47.109.109.163:2332/2024/03/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/">字符串相乘</a> 都属于很纯的数学题，不需要什么算法的思想，会数学就行！哈哈哈哈，但是本人一开始的思路还是跑偏到 dp动归 去了…</p>
-<h4 id="思路-error-版："><a href="#思路-error-版：" class="headerlink" title="思路 error 版："></a>思路 error 版：</h4><p>&nbsp;&nbsp; dp[i] 记录以位置 i 结尾的是否可以被整除。那递归过程中：如果 dp[i-1]可以，dp[i] 可不可以就单纯取决于 word[i] 是不是可以啦 ；如果 dp[i-1] 不可以，那就往前找到最后可以的位置，截取这之间的字符串，看是否可以被整除。举个例子：”99824435” , “9” 可以 ；”99” 可以； “998” 的时候，因为前面的 “99” 可以但是 “8” 不可以 , 那就不可以 ；”9982” 的时候 ，”998” 不可以 ，”82” 也不可以，那就不可以。【cause 9982 = 99 * 10 + 82】这种解决 JS 最大精度范围内的数字的字符串是可以的，但是超过精度就不行，因为不能进行取余运算…</p>
-<h4 id="思路-correct版："><a href="#思路-correct版：" class="headerlink" title="思路 correct版："></a>思路 correct版：</h4><p>&nbsp;&nbsp; 模拟除法运算，嗯嗯嗯，是这样的，就像之前模拟乘法运算一样。【(a*10 + b) % n &lt;=&gt; [(a%n) * 10 + b] % n 】998 % 4 = 198 % 4 = 38 % 4 = 2 </p>
+<p>我认为本题和 <a target="_blank" rel="noopener" href="http://47.109.109.163:2332/2024/03/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%B9%98/">字符串相乘</a> 都属于很纯的数学题，不需要什么算法的思想，会数学就行！哈哈哈哈，但是本人一开始的思路还是跑偏到 dp动归 去了…</p>
+<h4 id="思路-error-版："><a href="#思路-error-版：" class="headerlink" title="思路 error 版："></a>思路 error 版：</h4><p>\dp[i] 记录以位置 i 结尾的是否可以被整除。那递归过程中：如果 dp[i-1]可以，dp[i] 可不可以就单纯取决于 word[i] 是不是可以啦 ；如果 dp[i-1] 不可以，那就往前找到最后可以的位置，截取这之间的字符串，看是否可以被整除。举个例子：”99824435” , “9” 可以 ；”99” 可以； “998” 的时候，因为前面的 “99” 可以但是 “8” 不可以 , 那就不可以 ；”9982” 的时候 ，”998” 不可以 ，”82” 也不可以，那就不可以。【cause 9982 = 99 * 10 + 82】这种解决 JS 最大精度范围内的数字的字符串是可以的，但是超过精度就不行，因为不能进行取余运算…</p>
+<h4 id="思路-correct版："><a href="#思路-correct版：" class="headerlink" title="思路 correct版："></a>思路 correct版：</h4><p>模拟除法运算，嗯嗯嗯，是这样的，就像之前模拟乘法运算一样。【(a*10 + b) % n &lt;=&gt; [(a%n) * 10 + b] % n 】998 % 4 = 198 % 4 = 38 % 4 = 2 </p>
 <h4 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h4><p><img src="/static/images/%E6%95%B4%E9%99%A4%E6%95%B0%E7%BB%842.jpg" alt="哦豁，没加载出来"></p>
 <p>pre 记录一下前一位的区域结果 ，cur 是当前位</p>
 

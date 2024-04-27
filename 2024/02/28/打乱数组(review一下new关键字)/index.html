@@ -13,9 +13,9 @@
   <meta name="description" content="to the leetcode
 
 先看一下，给出的默认代码模版：
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;可见我们得补充实现一个构造函数Solution，那在这个构造函数里面我们都要干些什么呢?这个构造函数会被 new 调用，所以我们得先知道 new这个关键字背地里都干了什么？？
+可见我们得补充实现一个构造函数Solution，那在这个构造函数里面我们都要干些什么呢?这个构造函数会被 new 调用，所以我们得先知道 new这个关键字背地里都干了什么？？
 
-new运">
+new运算符用于创建一个用户定义的对象类型或具有构造函数">
   
   
   <meta property="og:title" content="打乱数组(review一下new关键字)"/>
@@ -88,7 +88,7 @@ new运">
     <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/shuffle-an-array/description/">to the leetcode</a></p>
 <p><img src="/static/images/%E6%89%93%E4%B9%B1%E6%95%B0%E7%BB%842.jpg" alt="hh"></p>
 <h5 id="先看一下，给出的默认代码模版："><a href="#先看一下，给出的默认代码模版：" class="headerlink" title="先看一下，给出的默认代码模版："></a>先看一下，给出的默认代码模版：</h5><p><img src="/static/images/%E6%89%93%E4%B9%B1%E6%95%B0%E7%BB%841.png" alt="hh"></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;可见我们得补充实现一个<strong>构造函数Solution</strong>，那在这个构造函数里面我们都要干些什么呢?这个构造函数会被 <strong>new</strong> 调用，所以我们得先知道 <strong>new这个关键字</strong>背地里都干了什么？？</p>
+<p>可见我们得补充实现一个<strong>构造函数Solution</strong>，那在这个构造函数里面我们都要干些什么呢?这个构造函数会被 <strong>new</strong> 调用，所以我们得先知道 <strong>new这个关键字</strong>背地里都干了什么？？</p>
 <blockquote>
 <p><code>new运算符</code>用于创建一个用户定义的对象类型或具有构造函数的内置对象类型的<strong>实例</strong>。该实例可以访问到构造函数里and其原型对象上的属性和方法。</p>
 </blockquote>
@@ -99,10 +99,10 @@ new运">
 <li>执行该构造函数，初始化 obj (往 obj 身上加属性和方法)</li>
 <li>判断该构造函数的返回类型，如果不 return or return 的不是原始值类型，就返回 obj ；否则就 return 要 return 的</li>
 </ul>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;okok，回到本题。先想想该构造函数都需要什么属性：(1) arr 来记录当前的数组  (2) origin 来记录初始状态的数组【reset方法需要返回数组的初始状态】(3) length 来记录数组长度。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;前面的都很 easy ，我认为本题主要是考虑如何实现以相同的概率随机返回任意一个打乱后的数组。想到的：每次随机从 arr 中 pick 一个元素 push 到临时的 temp 中，并从 arr 中删除该元素。那现在问题就变为了如何做到每次从 arr 中 pick 元素的概率相同？通过生成从 0 ~ length 的随机数下标即可！</p>
+<p>okok，回到本题。先想想该构造函数都需要什么属性：(1) arr 来记录当前的数组  (2) origin 来记录初始状态的数组【reset方法需要返回数组的初始状态】(3) length 来记录数组长度。</p>
+<p>前面的都很 easy ，我认为本题主要是考虑如何实现以相同的概率随机返回任意一个打乱后的数组。想到的：每次随机从 arr 中 pick 一个元素 push 到临时的 temp 中，并从 arr 中删除该元素。那现在问题就变为了如何做到每次从 arr 中 pick 元素的概率相同？通过生成从 0 ~ length 的随机数下标即可！</p>
 <h5 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h5><p><img src="/static/images/%E6%89%93%E4%B9%B1%E6%95%B0%E7%BB%843.jpg" alt="hh"></p>
-<h5 id="还需注意一点："><a href="#还需注意一点：" class="headerlink" title="还需注意一点："></a>还需注意一点：</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;给数组赋值的时候，要注意不要直接 <code>arr1 = arr2</code> ，这样 arr1 和 arr2 就指向了同一地址，那后续对 arr1 or arr2 的操作就会相互影响！可以向下面一样，<strong>slice() 一下</strong></p>
+<h5 id="还需注意一点："><a href="#还需注意一点：" class="headerlink" title="还需注意一点："></a>还需注意一点：</h5><p>给数组赋值的时候，要注意不要直接 <code>arr1 = arr2</code> ，这样 arr1 和 arr2 就指向了同一地址，那后续对 arr1 or arr2 的操作就会相互影响！可以向下面一样，<strong>slice() 一下</strong></p>
 <p><img src="/static/images/%E6%89%93%E4%B9%B1%E6%95%B0%E7%BB%844.png" alt="hh"></p>
 
 

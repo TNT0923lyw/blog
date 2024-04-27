@@ -107,7 +107,7 @@
   
     <h1 class="index-title">
         <a href="/2024/04/27/t/">
-            t
+            JS原型
         </a>
     </h1>
   
@@ -115,7 +115,9 @@
 
   <div class="excerpt">
   
-    
+    (1) JS中每一个对象都会有自己的原型对象，可以通过自身的**proto**属性来访问，返回的是 [[Prototype]] 属性。
+
+（ 注：**proto**属性基本上已经弃用，所以避免使用它，可以通过 getPrototypeof(
   
   <a href="/2024/04/27/t/">
     更多
@@ -130,6 +132,15 @@
   2024-04-27
 </time>
 
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/前端up向/">前端up向</a>
 
 
 
@@ -159,14 +170,16 @@
   <div class="excerpt">
   
     哼
-（哼，只有一个哼，我大哼特哼！）
+（哼，只有一个哼，我大哼特哼！我哼哼哼）
+17:42 –&gt; 哈哈哈哈来评论一下，给自己看笑了。但是就是想哼！
+19:31 –&gt; 再来哼一下，我有病，我就要哼！哼哼哼…
   
   <a href="/2024/04/26/哼/">
     更多
   </a>
   </div>
   <div class="index-meta">
-    <time datetime="2024-04-26T08:42:21.000Z" itemprop="datePublished">
+    <time datetime="2024-04-26T07:42:21.000Z" itemprop="datePublished">
   <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
   </svg>
@@ -324,6 +337,58 @@ curry 的作用：
 可以更容易地重用代码，因为可以将多参数函数分
   
   <a href="/2024/04/15/curry/">
+    更多
+  </a>
+  </div>
+  <div class="index-meta">
+    <time datetime="2024-04-15T08:36:46.000Z" itemprop="datePublished">
+  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2024-04-15
+</time>
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/前端up向/">前端up向</a>
+
+
+
+
+
+  </div>
+</li>
+<hr>
+
+
+
+
+
+  
+    
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2024/04/15/a/">
+            继承
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    
+  
+  <a href="/2024/04/15/a/">
     更多
   </a>
   </div>
@@ -556,62 +621,6 @@ bigInt (以n结尾) 解决大数值精度
   </div>
   <div class="index-meta">
     <time datetime="2024-04-09T11:57:13.000Z" itemprop="datePublished">
-  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  2024-04-09
-</time>
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/前端up向/">前端up向</a>
-
-
-
-
-
-  </div>
-</li>
-<hr>
-
-
-
-
-
-  
-    
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2024/04/09/review 执行上下文(作用域链) and 闭包/">
-            review 执行上下文(作用域链) and 闭包
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    执行上下文(作用域链)闭包的实现取决于JS的作用域链机制，而作用域链本质是执行上下文的一个属性，所以我们先从执行上下文说起、
-
-执行上下文是一个抽象的概念，它记录着 JS 代码执行时的环境信息。
-
-执行上下文可分为全局上下文和函数上下文，每
-  
-  <a href="/2024/04/09/review 执行上下文(作用域链) and 闭包/">
-    更多
-  </a>
-  </div>
-  <div class="index-meta">
-    <time datetime="2024-04-09T09:35:33.000Z" itemprop="datePublished">
   <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
   </svg>

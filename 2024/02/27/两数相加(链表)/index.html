@@ -12,8 +12,8 @@
   <meta name="author" content="hhlsdhh">
   <meta name="description" content="to the leetcode
 
-&amp;nbsp;&amp;nbsp;总体思路就是遍历链表，依次进行相加，因为最终结果也要以链表的形式返回。所以我们可以以其中一个链表为基准，假设为l2。在它的基础上进行结果的运算：不断更新该链表的值为结果值。要注意的点就是：
-&amp;nbsp;&amp;nbsp;遍历到l2链表末尾后，此时就">
+总体思路就是遍历链表，依次进行相加，因为最终结果也要以链表的形式返回。所以我们可以以其中一个链表为基准，假设为l2。在它的基础上进行结果的运算：不断更新该链表的值为结果值。要注意的点就是：
+遍历到l2链表末尾后，此时就需要新建节点来存储结果值啦！而且新建的这个节点还">
   
   
   <meta property="og:title" content="两数相加(链表)"/>
@@ -85,8 +85,8 @@
     </div>
     <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/add-two-numbers/description/">to the leetcode</a></p>
 <p><img src="/static/images/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0.jpg" alt="哦豁，没加载出来"></p>
-<p>&nbsp;&nbsp;总体思路就是遍历链表，依次进行相加，因为最终结果也要以链表的形式返回。所以我们可以以其中一个链表为基准，假设为l2。在它的基础上进行结果的运算：不断更新该链表的值为结果值。要注意的点就是：</p>
-<p>&nbsp;&nbsp;遍历到<strong>l2链表</strong>末尾后，此时就需要新建节点来存储结果值啦！而且新建的这个节点还要与前面连上，所以就需要 p3 来暂存一些前面的节点，从而呢可以 <strong>p3.next = new ListNode()</strong></p>
+<p>总体思路就是遍历链表，依次进行相加，因为最终结果也要以链表的形式返回。所以我们可以以其中一个链表为基准，假设为l2。在它的基础上进行结果的运算：不断更新该链表的值为结果值。要注意的点就是：</p>
+<p>遍历到<strong>l2链表</strong>末尾后，此时就需要新建节点来存储结果值啦！而且新建的这个节点还要与前面连上，所以就需要 p3 来暂存一些前面的节点，从而呢可以 <strong>p3.next = new ListNode()</strong></p>
 <p>##代码如下：</p>
 <p><img src="/static/images/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0%E4%BB%A3%E7%A0%81.jpg"></p>
 
