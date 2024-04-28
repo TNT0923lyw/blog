@@ -8,15 +8,11 @@
   <meta name="google-site-verification" content="" />
   <meta name="referrer" content="unsafe-url">
   
-  <title>JS原型</title>
+  <title>继承</title>
   <meta name="author" content="hhlsdhh">
-  <meta name="description" content="(1) JS中每一个对象都会有自己的原型对象，可以通过自身的__proto__属性来访问，返回的是 [[Prototype]] 属性。
-
-（ 注：__proto__属性基本上已经弃用，所以避免使用它，可以通过 getPrototypeof()来获取[[Prototype]] 里的属性值 ）
-(2) ">
   
   
-  <meta property="og:title" content="JS原型"/>
+  <meta property="og:title" content="继承"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:site_name" content="小刘&#39;s blog"/>
   <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
@@ -46,14 +42,14 @@
       
   
     <h1 class="page-title center">
-        JS原型
+        继承
     </h1>
   
 
 
     </div>
     <div class="meta center">
-      <time datetime="2024-04-27T08:25:04.158Z" itemprop="datePublished">
+      <time datetime="2024-04-27T10:50:28.427Z" itemprop="datePublished">
   <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
   </svg>
@@ -83,14 +79,7 @@
     <div class="picture-container">
       
     </div>
-    <p>(1) JS中每一个对象都会有自己的原型对象，可以通过自身的__proto__属性来访问，返回的是 <code>[[Prototype]]</code> 属性。</p>
-<p><img src="/static/images/%E5%8E%9F2.jpg" alt="哦豁，加载失败啦"></p>
-<p>（ 注：__proto__属性基本上已经弃用，所以避免使用它，可以通过 getPrototypeof()来获取<code>[[Prototype]]</code> 里的属性值 ）</p>
-<p>(2) JS中每个构造函数（本质上也是函数，为了区别于普通函数，首字母大写）在创建时，都会被赋予一个<strong>prototype</strong>属性，是一个空对象，我们可以把一些属性和方法添加到该空对象中。如内置的 Object 构造函数，打印它的<strong>prototype</strong>对象如下：</p>
-<p><img src="/static/images/%E5%8E%9F1.jpg" alt="哦豁，没加载出来"></p>
-<p>(3) 每个实例对象的__proto__所指向的对象 与 它的构造函数<strong>prototype</strong>所指向的对象是同一个。（太绕了！画个图看看嘞）</p>
-<p>因为构造函数本身也是一个对象，所以它也会有__proto__属性，</p>
-
+    
 
   </article>
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
