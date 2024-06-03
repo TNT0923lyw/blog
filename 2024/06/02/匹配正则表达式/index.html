@@ -89,7 +89,7 @@
 <p><img src="/static/images/%E6%AD%A3%E5%88%9901.png" alt="哦豁，没加载出来ei"></p>
 <p>最开始以为 <code>.*</code> 是同一个字符被匹配任意次，其实是任意字符被匹配任意次，即 <code>.* &lt;=&gt; aabbbb</code>，示例给了，没好好看ei…）就直接用了 while 循环开始简单的迭代，发现上面说的条件不好判断，因为很难确定 <code>.*</code> 到底要向前匹配多少个（这个时候做题难受的点就来了 -&gt; 怎样把肉眼一下就可以得到结果的过程一点一点告诉代码让它也可以美美滴得到结果）</p>
 <p>简单迭代无果后就想到了动归 -&gt; 本质上还是从头开始不断判断子串是否匹配直至末尾。那就三部曲：</p>
-<h4 id="「定义dp数组」"><a href="#「定义dp数组」" class="headerlink" title="「定义dp数组」"></a>「定义dp数组」</h4><p>由题涉及到两个字符串，应该是二维数组了。dp[i][j] 表示 s 中的前 i 个字符与 p 中前 j 个字符的匹配情况。</p>
+<h4 id="「定义dp数组」"><a href="#「定义dp数组」" class="headerlink" title="「定义dp数组」"></a>「定义dp数组」</h4><p>由题涉及到两个字符串，应该是二维数组了。dp[i][j] 则表示 s 中的前 i 个字符与 p 中前 j 个字符的匹配情况。</p>
 <h4 id="「数组初始化」"><a href="#「数组初始化」" class="headerlink" title="「数组初始化」"></a>「数组初始化」</h4><p>定义的时候初始化都为 false ，有几种边界情况为 true的：</p>
 <ul>
 <li>dp[0][0] = true </li>
@@ -103,28 +103,28 @@
 <li><p>p[j-1] === <code>.</code> 的话任意匹配 s 中的一个字符，dp[i][j] = dp[i-1][j-1] （可以跟上边的合并判断嘞）</p>
 </li>
 <li><p>p[j-1] === <code>*</code> ，还需要分情况讨论：</p>
-<pre><code>- s[i-1] !== p[j-2] 且 p[j-2] !== `.` 的话，（just like &#39;aabbc&#39; 和 &#39;abbbcd*&#39; ，此时`*`匹配0次），dp[i][j] = dp[i][j-2]
-
-- s[i-1] === p[j-2]，根据 `*` 的匹配次数又可以分为三种情况：
-         
-  - `*` 匹配 0 次，&#39;ab&#39; 和 &#39;abb*&#39;, dp[i][j] = dp[i][j-2]
-         
-  - `*` 匹配 1 次，&#39;ab&#39; 和 &#39;ab*&#39;, dp[i][j] = dp[i][j-1]
-         
-  - `*` 匹配 多 次，&#39;abbbb&#39; 和 &#39;ab*&#39;，dp[i][j] = dp[i-1][j] （在之前的迭代中，dp[i-1][j]已经被赋值为 true）
-         
-  所以 dp[i][j] = dp[i][j-2] || dp[i-1][j-1] || dp[i][j] = dp[i-1][j]
-         
-- p[j-2] === `.`，乱杀来喽
-
-  - `.*` 匹配 0 次 ，&#39;ab&#39; 和 &#39;ab.*&#39; , dp[i][j] = dp[i][j-2]
-
-  - `.*` 匹配 1 次 ，&#39;abc&#39; 和 &#39;ab.*&#39; ，dp[i][j] = dp[i][j-1]
-         
-   - `.*` 匹配 多 次，&#39;abcdefg&#39; 和 &#39;ab.*&#39; , dp[i][j] = dp[i-1][j] 
-
-  会发现，ai？这个跟上面判断的情况差不多嘛，那合在一起嘞！
-</code></pre>
+<ul>
+<li><p>s[i-1] !== p[j-2] 且 p[j-2] !== <code>.</code> 的话，（just like ‘aabbc’ 和 ‘abbbcd*’ ，此时<code>*</code>匹配0次），dp[i][j] = dp[i][j-2]</p>
+</li>
+<li><p>s[i-1] === p[j-2]，根据 <code>*</code> 的匹配次数又可以分为三种情况：</p>
+</li>
+<li><p><code>*</code> 匹配 0 次，’ab’ 和 ‘abb*’, dp[i][j] = dp[i][j-2]</p>
+</li>
+<li><p><code>*</code> 匹配 1 次，’ab’ 和 ‘ab*’, dp[i][j] = dp[i][j-1]</p>
+</li>
+<li><p><code>*</code> 匹配 多 次，’abbbb’ 和 ‘ab*’，dp[i][j] = dp[i-1][j] （在之前的迭代中，dp[i-1][j]已经被赋值为 true）</p>
+<p> 所以 dp[i][j] = dp[i][j-2] || dp[i-1][j-1] || dp[i][j] = dp[i-1][j]</p>
+</li>
+<li><p>p[j-2] === <code>.</code>，乱杀来喽</p>
+</li>
+<li><p><code>.*</code> 匹配 0 次 ，’ab’ 和 ‘ab.*’ , dp[i][j] = dp[i][j-2]</p>
+</li>
+<li><p><code>.*</code> 匹配 1 次 ，’abc’ 和 ‘ab.*’ ，dp[i][j] = dp[i][j-1]</p>
+</li>
+<li><p><code>.*</code> 匹配 多 次，’abcdefg’ 和 ‘ab.*’ , dp[i][j] = dp[i-1][j] </p>
+<p> 会发现，ai？这个跟上面判断的情况差不多嘛，那合在一起嘞！</p>
+</li>
+</ul>
 </li>
 </ul>
 <h4 id="「贴上代码」"><a href="#「贴上代码」" class="headerlink" title="「贴上代码」"></a>「贴上代码」</h4><p><img src="/static/images/%E6%AD%A3%E5%88%9902.png" alt="哦豁，没加载出来ei"></p>
