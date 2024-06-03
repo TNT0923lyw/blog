@@ -93,9 +93,9 @@
 <h4 id="「数组初始化」"><a href="#「数组初始化」" class="headerlink" title="「数组初始化」"></a>「数组初始化」</h4><p>定义的时候初始化都为 false ，有几种边界情况为 true的：</p>
 <ul>
 <li>dp[0][0] = true </li>
-<li>dp[0][k] 遇见 <code>*</code> </li>
+<li>dp[0][j] 遇见 <code>*</code> ，比如 p为 ‘a*’ </li>
 </ul>
-<p>dp[l][0] 就不说了，都还是 false</p>
+<p>dp[i][0] 就不说了，都还是 false</p>
 <h4 id="「状态转移方程」"><a href="#「状态转移方程」" class="headerlink" title="「状态转移方程」"></a>「状态转移方程」</h4><p>先来判断比较简单的（个人认为涉及到 <code>*</code> 的比较难想哈哈）</p>
 <ul>
 <li><p>s[i-1] === p[j-1] ，dp[i][j] = dp[i-1][j-1]</p>
