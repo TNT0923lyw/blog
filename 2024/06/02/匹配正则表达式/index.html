@@ -107,22 +107,23 @@
 <li><p>s[i-1] !== p[j-2] 且 p[j-2] !== <code>.</code> 的话，（just like ‘aabbc’ 和 ‘abbbcd*’ ，此时<code>*</code>匹配0次），dp[i][j] = dp[i][j-2]</p>
 </li>
 <li><p>s[i-1] === p[j-2]，根据 <code>*</code> 的匹配次数又可以分为三种情况：</p>
-</li>
-<li><p><code>*</code> 匹配 0 次，’ab’ 和 ‘abb*’, dp[i][j] = dp[i][j-2]</p>
-</li>
-<li><p><code>*</code> 匹配 1 次，’ab’ 和 ‘ab*’, dp[i][j] = dp[i][j-1]</p>
-</li>
-<li><p><code>*</code> 匹配 多 次，’abbbb’ 和 ‘ab*’，dp[i][j] = dp[i-1][j] （在之前的迭代中，dp[i-1][j]已经被赋值为 true）</p>
-<p> 所以 dp[i][j] = dp[i][j-2] || dp[i-1][j-1] || dp[i][j] = dp[i-1][j]</p>
+<ul>
+<li><code>*</code> 匹配 0 次，’ab’ 和 ‘abb*’, dp[i][j] = dp[i][j-2]</li>
+<li><code>*</code> 匹配 1 次，’ab’ 和 ‘ab*’, dp[i][j] = dp[i][j-1]</li>
+<li><code>*</code> 匹配 多 次，’abbbb’ 和 ‘ab*’，dp[i][j] = dp[i-1][j] （在之前的迭代中，dp[i-1][j]已经被赋值为 true）</li>
+</ul>
+<p>  所以 dp[i][j] = dp[i][j-2] || dp[i-1][j-1] || dp[i][j] = dp[i-1][j]</p>
 </li>
 <li><p>p[j-2] === <code>.</code>，乱杀来喽</p>
-</li>
+<ul>
 <li><p><code>.*</code> 匹配 0 次 ，’ab’ 和 ‘ab.*’ , dp[i][j] = dp[i][j-2]</p>
 </li>
 <li><p><code>.*</code> 匹配 1 次 ，’abc’ 和 ‘ab.*’ ，dp[i][j] = dp[i][j-1]</p>
 </li>
 <li><p><code>.*</code> 匹配 多 次，’abcdefg’ 和 ‘ab.*’ , dp[i][j] = dp[i-1][j] </p>
-<p> 会发现，ai？这个跟上面判断的情况差不多嘛，那合在一起嘞！</p>
+</li>
+</ul>
+<p>  会发现，ai？这个跟上面判断的情况差不多嘛，那合在一起嘞！</p>
 </li>
 </ul>
 </li>
