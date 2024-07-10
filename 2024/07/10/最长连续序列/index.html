@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  <meta name="referrer" content="unsafe-url">
+  <div class="head">
+  
+  <title>最长连续序列</title>
+  <meta name="author" content="hhlsdhh">
+  <meta name="description" content="to the leetcode
+
+号外号外～ 超时超时 哈哈哈哈
+超时版思路：用一个数组记录一下数字是否出现，开始没有考虑到负数，就想数字直接映射到数组下标，eg：1 -&amp;gt; arr[1] = 1 ，再次出现就不管了）主要目的是为了得到排序后的序列，为什么不直接 sort 嘞? -&amp;gt; so">
+  
+  
+  <meta property="og:title" content="最长连续序列"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="小刘&#39;s blog"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="小刘&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="stylesheet" href="/css/head.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  </div>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="main-ctnr">
+      <div class="behind">
+  <div class="back black-color" id='back'>
+   <svg  version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="90" height="60" viewBox="0 0 90 60" enable-background="new 0 0 137 88" xml:space="preserve">  <image id="image0" width="90" height="60" x="0" y="0"
+    href="data:image/jpeg;base64,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" ></image>
+</svg>
+
+  </div>
+  
+</div>
+
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        最长连续序列
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      <time datetime="2024-07-10T03:15:22.000Z" itemprop="datePublished">
+  <svg class="i-calendar" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2024-07-10
+</time>
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/leetcode/">leetcode</a>
+
+
+
+
+
+    </div>
+    <hr>
+    
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B6%85%E6%97%B6%E7%89%88%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-text">超时版思路：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%A7%E5%AE%B6%E7%9A%84%EF%BC%9A"><span class="toc-text">大家的：</span></a></li></ol>
+    
+    <div class="picture-container">
+      
+    </div>
+    <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-consecutive-sequence/description/?envType=study-plan-v2&envId=top-interview-150">to the leetcode</a></p>
+<p><img src="/static/images/%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%971.png" alt="hh"></p>
+<p>号外号外～ 超时超时 哈哈哈哈</p>
+<h5 id="超时版思路："><a href="#超时版思路：" class="headerlink" title="超时版思路："></a>超时版思路：</h5><p>用一个数组记录一下数字是否出现，开始没有考虑到负数，就想数字直接映射到数组下标，eg：1 -&gt; arr[1] = 1 ，再次出现就不管了）主要目的是为了得到排序后的序列，为什么不直接 sort 嘞? -&gt; sort 之后我们还是不知道连续的子序列到哪会断，又从哪重新开始，即找不到子连续序列的头和尾。</p>
+<p>考虑上负数🤔，找到最小数的绝对值 min ，把数字 i 映射到数组中下标为 i + min 的位置就可以了。</p>
+<p>那数组长度就为 最大数 - 最小数，各个位置的值都初始化为 false。这样我们就可以通过正则把连续的子序列取出来，eg: nums = [0,1,-7,2,-1]  -&gt; map = [-1,0,1,2,false,false,false,false,7] -&gt; join(‘.’)一下 -&gt; str = “-1.0.1.2.false.false.false.false.7” 正则match下 -&gt; str.match(/(-?\d+.?)+/g)</p>
+<p><img src="/static/images/%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%972.png" alt="hh"></p>
+<p>「有几个测试用例超时了」</p>
+<h5 id="大家的："><a href="#大家的：" class="headerlink" title="大家的："></a>大家的：</h5><p>笑死，又被自己蠢笑了🤭。上面还balabala解释为什么不用 sort，什么不知道到哪会断，怎么不知道， next !== cur+1 不就断了。（果然，人和人之间的智商是有差距的哈哈哈哈）</p>
+<ul>
+<li><p>只 sort 也行，sort完遍历判断就可以。</p>
+</li>
+<li><p>也可以用 set，set = new Set(nums)。遍历 nums：</p>
+</li>
+<li><p>如果 set 里没有 nums[i]-1 ， 说明当前数字没有左邻居，那它就是某连续子序列的起点，那就顺着它向右一直找就行。</p>
+</li>
+<li><p>如果有，说明不是起点，直接跳过就行。</p>
+</li>
+</ul>
+<p><img src="/static/images/%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%973.png" alt="hh"></p>
+
+
+  </article>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <div class="busuanzi center">
+    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+    
+
+
+
+
+
+
+<script type="text/javascript">
+let back = document.getElementById('back')
+back.addEventListener("click",()=>{
+    window.history.back()
+})
+</script>
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © hhsdhh begin at 2022
+    </div>
+    <div class="secondrow">
+        <a target="_blank" rel="noopener" href="https://github.com/gaoryrt/hexo-theme-pln">
+        moments
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
