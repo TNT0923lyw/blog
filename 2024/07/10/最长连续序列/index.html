@@ -89,20 +89,25 @@
     <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-consecutive-sequence/description/?envType=study-plan-v2&envId=top-interview-150">to the leetcode</a></p>
 <p><img src="/static/images/%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%971.png" alt="hh"></p>
 <p>号外号外～ 超时超时 哈哈哈哈</p>
-<h5 id="超时版思路："><a href="#超时版思路：" class="headerlink" title="超时版思路："></a>超时版思路：</h5><p>用一个数组记录一下数字是否出现，开始没有考虑到负数，就想数字直接映射到数组下标，eg：1 -&gt; arr[1] = 1 ，再次出现就不管了）主要目的是为了得到排序后的序列，为什么不直接 sort 嘞? -&gt; sort 之后我们还是不知道连续的子序列到哪会断，又从哪重新开始，即找不到子连续序列的头和尾。</p>
-<p>考虑上负数🤔，找到最小数的绝对值 min ，把数字 i 映射到数组中下标为 i + min 的位置就可以了。</p>
-<p>那数组长度就为 最大数 - 最小数，各个位置的值都初始化为 false。这样我们就可以通过正则把连续的子序列取出来，eg: nums = [0,1,-7,2,-1]  -&gt; map = [-1,0,1,2,false,false,false,false,7] -&gt; join(‘.’)一下 -&gt; str = “-1.0.1.2.false.false.false.false.7” 正则match下 -&gt; str.match(/(-?\d+.?)+/g)</p>
+<h5 id="超时版思路："><a href="#超时版思路：" class="headerlink" title="超时版思路："></a>超时版思路：</h5><p>用一个数组记录一下数字是否出现，开始没有考虑到负数，就想数字直接映射到数组下标，eg：1 -&gt; arr[1] = 1 ，再次出现就不管了）主要目的是为了得到排序后的序列，为什么不直接 sort 嘞? -&gt; sort 之后我们还是不知道某个连续子序列到哪会断，又从哪重新开始，即找不到头和尾。</p>
+<p>考虑上负数🤔，找到所给数字中最小的绝对值 min ，把数字 i 映射到数组中下标为 i + min 的位置上就可以了。</p>
+<p>那数组长度就为 最大数字 - 最小数字，各个位置的值都初始化为 false。这样我们就可以通过正则把连续的子序列取出来，eg: 所给 nums = [0,1,-7,2,-1]  -&gt; mapArr = [-1,0,1,2,false,false,false,false,7] -&gt; join(‘.’)转一下字符串 -&gt; str = “-1.0.1.2.false.false.false.false.7” -&gt; str.match(/(-?\d+.?)+/g)用正则取出来。</p>
+<p>然后找出长度最长的就行🙃。</p>
 <p><img src="/static/images/%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%972.png" alt="hh"></p>
 <p>「有几个测试用例超时了」</p>
-<h5 id="大家的："><a href="#大家的：" class="headerlink" title="大家的："></a>大家的：</h5><p>笑死，又被自己蠢笑了🤭。上面还balabala解释为什么不用 sort，什么不知道到哪会断，怎么不知道， next !== cur+1 不就断了。（果然，人和人之间的智商是有差距的哈哈哈哈）</p>
+<h5 id="大家的："><a href="#大家的：" class="headerlink" title="大家的："></a>大家的：</h5><p>笑死，又被自己蠢笑了🤭。上面还balabala解释为什么不用 sort，什么不知道到哪会断，怎么不知道， next !== cur+1 不就断了。（果然，人和人之间的智商还是有差距的哈哈哈哈）</p>
 <ul>
-<li><p>只 sort 也行，sort完遍历判断就可以。</p>
-</li>
+<li>只 sort 也行，sort完遍历判断就可以。</li>
+</ul>
+<p><img src="/static/images/%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%974.png" alt="hh"></p>
+<ul>
 <li><p>也可以用 set，set = new Set(nums)。遍历 nums：</p>
-</li>
+<ul>
 <li><p>如果 set 里没有 nums[i]-1 ， 说明当前数字没有左邻居，那它就是某连续子序列的起点，那就顺着它向右一直找就行。</p>
 </li>
 <li><p>如果有，说明不是起点，直接跳过就行。</p>
+</li>
+</ul>
 </li>
 </ul>
 <p><img src="/static/images/%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%973.png" alt="hh"></p>
